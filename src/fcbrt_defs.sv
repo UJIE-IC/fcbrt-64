@@ -1,4 +1,4 @@
-package defs_cbrt;
+package fcbrt_defs;
 
   localparam C_RM                  = 3;
   localparam C_RM_NEAREST          = 3'h0;
@@ -33,4 +33,4 @@ package defs_cbrt;
   localparam C_MZERO_FP32          = 32'h8000_0000;
   localparam C_QNAN_FP32           = 32'h7FC0_0000;
 
-endpackage : defs_cbrt
+endpackage : fcbrt_defs
