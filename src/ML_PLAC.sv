@@ -1,54 +1,54 @@
-module ML_PLAC(
-    input  logic [13:0] x_in,
-    output logic [8:0]  y_out
+module cube_root_init(
+    input [13:0]x_in,
+    output [8:0]y_out
 );
 
-    logic [14:0] diff1  = {1'b0, x_in} - {1'b0, 14'b00101001000000};
-    logic [14:0] diff2  = {1'b0, x_in} - {1'b0, 14'b00101111101000};
-    logic [14:0] diff3  = {1'b0, x_in} - {1'b0, 14'b00111000100110};
-    logic [14:0] diff4  = {1'b0, x_in} - {1'b0, 14'b01000100101000};
-    logic [14:0] diff5  = {1'b0, x_in} - {1'b0, 14'b01010101111100};
-    logic [14:0] diff6  = {1'b0, x_in} - {1'b0, 14'b01011100111111};
-    logic [14:0] diff7  = {1'b0, x_in} - {1'b0, 14'b01110000000000};
-    logic [14:0] diff8  = {1'b0, x_in} - {1'b0, 14'b01110101010010};
-    logic [14:0] diff9  = {1'b0, x_in} - {1'b0, 14'b01111010100011};
-    logic [14:0] diff10 = {1'b0, x_in} - {1'b0, 14'b10000011011011};
-    logic [14:0] diff11 = {1'b0, x_in} - {1'b0, 14'b10011100001000};
-    logic [14:0] diff12 = {1'b0, x_in} - {1'b0, 14'b10100101000100};
-    logic [14:0] diff13 = {1'b0, x_in} - {1'b0, 14'b10101100001010};
-    logic [14:0] diff14 = {1'b0, x_in} - {1'b0, 14'b10110001010111};
-    logic [14:0] diff15 = {1'b0, x_in} - {1'b0, 14'b10111011001111};
-    logic [14:0] diff16 = {1'b0, x_in} - {1'b0, 14'b11000111101011};
-    logic [14:0] diff17 = {1'b0, x_in} - {1'b0, 14'b11101110111000};
-    logic [14:0] diff18 = {1'b0, x_in} - {1'b0, 14'b11111010111100};
+    wire [14:0]diff1  = {1'b0, x_in} - {1'b0, 14'b00101001000000};
+    wire [14:0]diff2  = {1'b0, x_in} - {1'b0, 14'b00101111101000};
+    wire [14:0]diff3  = {1'b0, x_in} - {1'b0, 14'b00111000100110};
+    wire [14:0]diff4  = {1'b0, x_in} - {1'b0, 14'b01000100101000};
+    wire [14:0]diff5  = {1'b0, x_in} - {1'b0, 14'b01010101111100};
+    wire [14:0]diff6  = {1'b0, x_in} - {1'b0, 14'b01011100111111};
+    wire [14:0]diff7  = {1'b0, x_in} - {1'b0, 14'b01110000000000};
+    wire [14:0]diff8  = {1'b0, x_in} - {1'b0, 14'b01110101010010};
+    wire [14:0]diff9  = {1'b0, x_in} - {1'b0, 14'b01111010100011};
+    wire [14:0]diff10 = {1'b0, x_in} - {1'b0, 14'b10000011011011};
+    wire [14:0]diff11 = {1'b0, x_in} - {1'b0, 14'b10011100001000};
+    wire [14:0]diff12 = {1'b0, x_in} - {1'b0, 14'b10100101000100};
+    wire [14:0]diff13 = {1'b0, x_in} - {1'b0, 14'b10101100001010};
+    wire [14:0]diff14 = {1'b0, x_in} - {1'b0, 14'b10110001010111};
+    wire [14:0]diff15 = {1'b0, x_in} - {1'b0, 14'b10111011001111};
+    wire [14:0]diff16 = {1'b0, x_in} - {1'b0, 14'b11000111101011};
+    wire [14:0]diff17 = {1'b0, x_in} - {1'b0, 14'b11101110111000};
+    wire [14:0]diff18 = {1'b0, x_in} - {1'b0, 14'b11111010111100};
 
-    logic s1 = diff1[14];
-    logic s2 = diff2[14];
-    logic s3 = diff3[14];
-    logic s4 = diff4[14];
-    logic s5 = diff5[14];
-    logic s6 = diff6[14];
-    logic s7 = diff7[14];
-    logic s8 = diff8[14];
-    logic s9 = diff9[14];
-    logic s10 = diff10[14];
-    logic s11 = diff11[14];
-    logic s12 = diff12[14];
-    logic s13 = diff13[14];
-    logic s14 = diff14[14];
-    logic s15 = diff15[14];
-    logic s16 = diff16[14];
-    logic s17 = diff17[14];
-    logic s18 = diff18[14];
+    wire s1 = diff1[14];
+    wire s2 = diff2[14];
+    wire s3 = diff3[14];
+    wire s4 = diff4[14];
+    wire s5 = diff5[14];
+    wire s6 = diff6[14];
+    wire s7 = diff7[14];
+    wire s8 = diff8[14];
+    wire s9 = diff9[14];
+    wire s10 = diff10[14];
+    wire s11 = diff11[14];
+    wire s12 = diff12[14];
+    wire s13 = diff13[14];
+    wire s14 = diff14[14];
+    wire s15 = diff15[14];
+    wire s16 = diff16[14];
+    wire s17 = diff17[14];
+    wire s18 = diff18[14];
 
-    logic [17:0] ss = {s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18};
-    logic [13:0] bq;
+    wire [17:0]ss = {s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18};
+    reg [13:0]bq;
 
-    logic [13:0] term1;
-    logic [13:0] term2;
-    logic [13:0] term3;
+    reg [13:0]term1;
+    reg [13:0]term2;
+    reg [13:0]term3;
 
-    always_comb begin
+    always @(*) begin
         case(ss)
             18'b111111111111111111: bq = 14'b01010111111110;
             18'b011111111111111111: bq = 14'b01011100110000;
@@ -96,15 +96,15 @@ module ML_PLAC(
         endcase
     end
 
-    logic [14:0] sum1;
-    logic [14:0] sum2;
-    logic [14:0] y_15bit;
+    wire [14:0]sum1;
+    wire [14:0]sum2;
+    wire [14:0]y_15bit;
 
     CLA_15bit u1_CLA_15bit(
         .A     	( {1'b0, term1}  ),
         .B     	( {1'b0, term2}  ),
         .C_in  	( 1'b0           ),
-        .S     	( sum1              ),
+        .S     	( sum1           ),
         .C_out 	(                )       
     );
 
@@ -124,7 +124,7 @@ module ML_PLAC(
         .C_out 	(                )       
     );
 
-    logic [14:0] rounded_sum = y_15bit + 15'd32;
+    wire [14:0] rounded_sum = y_15bit + 15'd32;
     assign y_out = rounded_sum[14:6];      
 
 endmodule

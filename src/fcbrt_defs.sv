@@ -1,11 +1,12 @@
 package fcbrt_defs;
 
+  // OPcode
   localparam C_RM                  = 3;
   localparam C_RM_NEAREST          = 3'h0;
 
-  localparam C_FS                  = 1;    // only FP32 / FP64
-  localparam C_FMT_FP32            = 1'b0;
-  localparam C_FMT_FP64            = 1'b1;
+  // ML_PLAC
+  localparam C_INIT_IW             = 14;
+  localparam C_INIT_OW             = 9;
 
   // FP64
   localparam C_OP_FP64             = 64;
