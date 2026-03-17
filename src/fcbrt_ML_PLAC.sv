@@ -1,26 +1,26 @@
-module cube_root_init(
-    input [13:0]x_in,
-    output [8:0]y_out
+module fcbrt_ML_PLAC(
+    input logic [13:0] x_in,
+    output logic [8:0] y_out
 );
 
-    wire [14:0]diff1  = {1'b0, x_in} - {1'b0, 14'b00101001000000};
-    wire [14:0]diff2  = {1'b0, x_in} - {1'b0, 14'b00101111101000};
-    wire [14:0]diff3  = {1'b0, x_in} - {1'b0, 14'b00111000100110};
-    wire [14:0]diff4  = {1'b0, x_in} - {1'b0, 14'b01000100101000};
-    wire [14:0]diff5  = {1'b0, x_in} - {1'b0, 14'b01010101111100};
-    wire [14:0]diff6  = {1'b0, x_in} - {1'b0, 14'b01011100111111};
-    wire [14:0]diff7  = {1'b0, x_in} - {1'b0, 14'b01110000000000};
-    wire [14:0]diff8  = {1'b0, x_in} - {1'b0, 14'b01110101010010};
-    wire [14:0]diff9  = {1'b0, x_in} - {1'b0, 14'b01111010100011};
-    wire [14:0]diff10 = {1'b0, x_in} - {1'b0, 14'b10000011011011};
-    wire [14:0]diff11 = {1'b0, x_in} - {1'b0, 14'b10011100001000};
-    wire [14:0]diff12 = {1'b0, x_in} - {1'b0, 14'b10100101000100};
-    wire [14:0]diff13 = {1'b0, x_in} - {1'b0, 14'b10101100001010};
-    wire [14:0]diff14 = {1'b0, x_in} - {1'b0, 14'b10110001010111};
-    wire [14:0]diff15 = {1'b0, x_in} - {1'b0, 14'b10111011001111};
-    wire [14:0]diff16 = {1'b0, x_in} - {1'b0, 14'b11000111101011};
-    wire [14:0]diff17 = {1'b0, x_in} - {1'b0, 14'b11101110111000};
-    wire [14:0]diff18 = {1'b0, x_in} - {1'b0, 14'b11111010111100};
+    wire [14:0] diff1  = {1'b0, x_in} - {1'b0, 14'b00101001000000};
+    wire [14:0] diff2  = {1'b0, x_in} - {1'b0, 14'b00101111101000};
+    wire [14:0] diff3  = {1'b0, x_in} - {1'b0, 14'b00111000100110};
+    wire [14:0] diff4  = {1'b0, x_in} - {1'b0, 14'b01000100101000};
+    wire [14:0] diff5  = {1'b0, x_in} - {1'b0, 14'b01010101111100};
+    wire [14:0] diff6  = {1'b0, x_in} - {1'b0, 14'b01011100111111};
+    wire [14:0] diff7  = {1'b0, x_in} - {1'b0, 14'b01110000000000};
+    wire [14:0] diff8  = {1'b0, x_in} - {1'b0, 14'b01110101010010};
+    wire [14:0] diff9  = {1'b0, x_in} - {1'b0, 14'b01111010100011};
+    wire [14:0] diff10 = {1'b0, x_in} - {1'b0, 14'b10000011011011};
+    wire [14:0] diff11 = {1'b0, x_in} - {1'b0, 14'b10011100001000};
+    wire [14:0] diff12 = {1'b0, x_in} - {1'b0, 14'b10100101000100};
+    wire [14:0] diff13 = {1'b0, x_in} - {1'b0, 14'b10101100001010};
+    wire [14:0] diff14 = {1'b0, x_in} - {1'b0, 14'b10110001010111};
+    wire [14:0] diff15 = {1'b0, x_in} - {1'b0, 14'b10111011001111};
+    wire [14:0] diff16 = {1'b0, x_in} - {1'b0, 14'b11000111101011};
+    wire [14:0] diff17 = {1'b0, x_in} - {1'b0, 14'b11101110111000};
+    wire [14:0] diff18 = {1'b0, x_in} - {1'b0, 14'b11111010111100};
 
     wire s1 = diff1[14];
     wire s2 = diff2[14];
@@ -41,14 +41,14 @@ module cube_root_init(
     wire s17 = diff17[14];
     wire s18 = diff18[14];
 
-    wire [17:0]ss = {s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18};
-    reg [13:0]bq;
+    wire [17:0] ss = {s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18};
+    logic [13:0] bq;
 
-    reg [13:0]term1;
-    reg [13:0]term2;
-    reg [13:0]term3;
+    logic [13:0] term1;
+    logic [13:0] term2;
+    logic [13:0] term3;
 
-    always @(*) begin
+    always_comb begin
         case(ss)
             18'b111111111111111111: bq = 14'b01010111111110;
             18'b011111111111111111: bq = 14'b01011100110000;
@@ -96,9 +96,9 @@ module cube_root_init(
         endcase
     end
 
-    wire [14:0]sum1;
-    wire [14:0]sum2;
-    wire [14:0]y_15bit;
+    logic [14:0] sum1;
+    logic [14:0] sum2;
+    logic [14:0] y_15bit;
 
     CLA_15bit u1_CLA_15bit(
         .A     	( {1'b0, term1}  ),

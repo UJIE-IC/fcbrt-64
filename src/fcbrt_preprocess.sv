@@ -11,13 +11,15 @@ module fcbrt_preprocess(
 
     input logic [C_OP_FP64-1:0] operand_i,
 
-    output logic start_o,
+    output logic start_dly_o,
     output logic [C_RM-1:0] rm_o,
+    output logic fmt_sel_o,
     
     output logic sign_o,
     output logic [1:0] shift_num_o,                 // 尾数右移位数，即指数需要加上的位数
-    output logic [C_EXP_FP64-1:0] exp_nnorm_bias_o, // 带有偏置的
+    output logic [C_EXP_FP64-1:0] exp_bias_o, // 带有偏置的
     output logic [C_MANT_FP64+3:0] mant_norm_o,     // 归一化尾数，0.125-1
+
     output logic [C_LZCNT-1:0] lzcnt_o,             // 前导零计数
     output logic is_subnormal_o,                    // 1'b0是规格化数，1'b1是次规格化数
 
@@ -45,6 +47,11 @@ module fcbrt_preprocess(
                 exp_operand = operand_i[C_OP_FP64-2:C_MANT_FP64];
                 mant_operand_nonh = operand_i[C_MANT_FP64-1:0];
             end
+            default: begin
+                sign_operand = '0;
+                exp_operand = '0;
+                mant_operand_nonh = '0;
+            end
         endcase
     end
 
@@ -63,7 +70,7 @@ module fcbrt_preprocess(
     assign is_subnormal_N = (start_i&&ready_i)?((~(|exp_operand))&&(|mant_operand_nonh)):is_subnormal_P;
 
     always_ff @(posedge clk_i or negedge rst_ni) begin
-        if(~rst_ni)begin
+        if (~rst_ni) begin
             is_zero_P <= '0;
             is_inf_P <= '0;
             is_NaN_P <= '0;
@@ -82,7 +89,7 @@ module fcbrt_preprocess(
     assign special_case_N = (start_i&&ready_i)?(is_zero_N||is_inf_N||is_NaN_N):special_case_P;
 
     always_ff @(posedge clk_i or negedge rst_ni) begin
-        if(~rst_ni)begin
+        if (~rst_ni) begin
             special_case_P <= '0;
         end else begin
             special_case_P <= special_case_N;
@@ -96,20 +103,20 @@ module fcbrt_preprocess(
     assign sign_N = (start_i&&ready_i)?sign_operand:sign_P;
 
     always_ff @(posedge clk_i or negedge rst_ni) begin
-        if(~rst_ni)begin
+        if (~rst_ni) begin
             sign_P <= '0;
         end else begin
             sign_P <= sign_N;
         end
     end
 
-    logic exp_operand_N;
-    logic exp_operand_P;
+    logic [C_EXP_FP64-1:0] exp_operand_N;
+    logic [C_EXP_FP64-1:0] exp_operand_P;
 
     assign exp_operand_N = (start_i&&ready_i)?exp_operand:exp_operand_P;
 
     always_ff @(posedge clk_i or negedge rst_ni) begin
-        if(~rst_ni)begin
+        if (~rst_ni) begin
             exp_operand_P <= '0;
         end else begin
             exp_operand_P <= exp_operand_N;
@@ -122,10 +129,35 @@ module fcbrt_preprocess(
     assign rm_N = (start_i&&ready_i)?rm_i:rm_P;
 
     always_ff @(posedge clk_i or negedge rst_ni) begin
-        if(~rst_ni)begin
+        if (~rst_ni) begin
             rm_P <= '0;
         end else begin
             rm_P <= rm_N;
+        end
+    end
+
+    logic fmt_sel_N;
+    logic fmt_sel_P;
+
+    assign fmt_sel_N = (start_i&&ready_i)?fmt_sel_i:fmt_sel_P;
+
+    always_ff @(posedge clk_i or negedge rst_ni) begin
+        if (~rst_ni) begin
+            fmt_sel_P <= '0;
+        end else begin
+            fmt_sel_P <= fmt_sel_N;
+        end
+    end
+
+    logic start_N, start_P;
+
+    assign start_N = (start_i&&ready_i)?1'b1:1'b0;
+
+    always_ff @(posedge clk_i or negedge rst_ni) begin
+        if (~rst_ni) begin
+            start_P <= 'b0;
+        end else begin
+            start_P <= start_N;
         end
     end
 
@@ -144,8 +176,8 @@ module fcbrt_preprocess(
     assign lzcnt_N = (start_i&&ready_i)?lzcnt:lzcnt_P;
 
     always_ff @(posedge clk_i or negedge rst_ni) begin
-        if(~rst_ni)begin
-            lzcnt_N <= '0;
+        if (~rst_ni) begin
+            lzcnt_P <= '0;
         end else begin
             lzcnt_P <= lzcnt_N;
         end
@@ -156,9 +188,9 @@ module fcbrt_preprocess(
     assign mant_operand_norm = is_subnormal_N?{mant_operand_nonh << lzcnt_N, 1'b0}:{1'b1,mant_operand_nonh};
 
     logic [C_EXP_FP64-1:0] mod3_i;
-    logic [2:0] mod3_o;
+    logic [1:0] mod3_o;
 
-    assign mod3_i = is_subnormal_N?lzcnt_N:exp_operand_N;
+    assign mod3_i = is_subnormal_N?{{(C_EXP_FP64-C_LZCNT){1'b0}}, lzcnt_N}:exp_operand_N;
  
     logic [3:0] even_cnt;
     logic [3:0] odd_cnt;
@@ -196,49 +228,54 @@ module fcbrt_preprocess(
     logic [C_MANT_FP64+3:0] mant_norm_P;
 
     always_comb begin
-        if (is_subnormal_N) begin
-            case(mod3_o)
-                2'd0: begin
-                    shift_num_N = 2'd3;
-                    mant_norm_N = {3'b0, mant_operand_norm};
-                end
-                2'd1: begin
-                    shift_num_N = 2'd1;
-                    mant_norm_N = {1'b0, mant_operand_norm,2'b0};
-                end
-                2'd2: begin
-                    shift_num_N = 2'd2;
-                    mant_norm_N = {2'b0, mant_operand_norm,1'b0};
-                end
-                default: begin
-                    shift_num_N = 2'd0;
-                    mant_norm_N = '0;
-                end
-            endcase
+        if (start_i&&ready_i) begin
+            if (is_subnormal_N) begin
+                case(mod3_o)
+                    2'd0: begin
+                        shift_num_N = 2'd3;
+                        mant_norm_N = {3'b0, mant_operand_norm};
+                    end
+                    2'd1: begin
+                        shift_num_N = 2'd1;
+                        mant_norm_N = {1'b0, mant_operand_norm,2'b0};
+                    end
+                    2'd2: begin
+                        shift_num_N = 2'd2;
+                        mant_norm_N = {2'b0, mant_operand_norm,1'b0};
+                    end
+                    default: begin
+                        shift_num_N = 2'd0;
+                        mant_norm_N = '0;
+                    end
+                endcase
+            end else begin
+                case(mod3_o)
+                    2'd0: begin
+                        shift_num_N = 2'd3;
+                        mant_norm_N = {3'b0, mant_operand_norm};
+                    end
+                    2'd1: begin
+                        shift_num_N = 2'd2;
+                        mant_norm_N = {2'b0, mant_operand_norm,1'b0};
+                    end
+                    2'd2: begin
+                        shift_num_N = 2'd1;
+                        mant_norm_N = {1'b0, mant_operand_norm,2'b0};
+                    end
+                    default: begin
+                        shift_num_N = 2'd0;
+                        mant_norm_N = '0;
+                    end
+                endcase
+            end
         end else begin
-            case(mod3_o)
-                2'd0: begin
-                    shift_num_N = 2'd3;
-                    mant_norm_N = {3'b0, mant_operand_norm};
-                end
-                2'd1: begin
-                    shift_num_N = 2'd2;
-                    mant_norm_N = {2'b0, mant_operand_norm,1'b0};
-                end
-                2'd2: begin
-                    shift_num_N = 2'd1;
-                    mant_norm_N = {1'b0, mant_operand_norm,2'b0};
-                end
-                default: begin
-                    shift_num_N = 2'd0;
-                    mant_norm_N = '0;
-                end
-            endcase
+            shift_num_N = shift_num_P;
+            mant_norm_N = mant_norm_P;
         end
     end
 
     always_ff @(posedge clk_i or negedge rst_ni) begin
-        if(~rst_ni)begin
+        if (~rst_ni) begin
             shift_num_P <= '0;
         end else begin
             shift_num_P <= shift_num_N;
@@ -246,7 +283,7 @@ module fcbrt_preprocess(
     end
 
     always_ff @(posedge clk_i or negedge rst_ni) begin
-        if(~rst_ni)begin
+        if (~rst_ni) begin
             mant_norm_P <= '0;
         end else begin
             mant_norm_P <= mant_norm_N;
@@ -257,15 +294,16 @@ module fcbrt_preprocess(
     // 输出
     assign sign_o = sign_P;
     assign rm_o = rm_P;
-    assign start_o = start_i;
+    assign start_dly_o = start_P;
     assign is_subnormal_o = is_subnormal_P;
     assign special_case_o = special_case_P;
     assign is_inf_o = is_inf_P;
     assign is_zero_o = is_zero_P;
     assign is_NaN_o = is_NaN_P;
     assign lzcnt_o = lzcnt_P;
-    assign exp_nnorm_bias_o = exp_operand_P;
+    assign exp_bias_o = exp_operand_P;
     assign shift_num_o = shift_num_P;
     assign mant_norm_o = mant_norm_P;
+    assign fmt_sel_o = fmt_sel_P;
 
 endmodule
