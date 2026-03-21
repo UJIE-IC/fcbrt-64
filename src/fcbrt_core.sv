@@ -35,19 +35,19 @@ module fcbrt_core(
         end
     end
 
-    logic fcbrt_en;
+    // logic fcbrt_en;
 
-    always_ff @(posedge clk_i or negedge rst_ni) begin
-        if (~rst_ni) begin
-            fcbrt_en <= 1'b0;
-        end else if (start_i&&ready_o) begin
-            fcbrt_en <= 1'b1;
-        end else if (1) begin        // 待修改
-            fcbrt_en <= 1'b0;
-        end else begin
-            fcbrt_en <= fcbrt_en;
-        end
-    end
+    // always_ff @(posedge clk_i or negedge rst_ni) begin
+    //     if (~rst_ni) begin
+    //         fcbrt_en <= 1'b0;
+    //     end else if (start_i&&ready_o) begin
+    //         fcbrt_en <= 1'b1;
+    //     end else if (1) begin        // 待修改
+    //         fcbrt_en <= 1'b0;
+    //     end else begin
+    //         fcbrt_en <= fcbrt_en;
+    //     end
+    // end
 
 
     // ML-PLAC Init
@@ -206,35 +206,35 @@ module fcbrt_core(
     logic [C_MANT_FP64+4:0] S;  // U1.56
     logic [C_MANT_FP64+4:0] SM; // U1.56
 
-    assign S[C_MANT_FP64+4-:9] = mant_init_o;
-    assign SM[C_MANT_FP64+4-:9] = mant_init_o - 'd1;
+    assign S = {mant_init_o, {(C_MANT_FP64+5-C_INIT_OW){1'b0}}};
+    assign SM = {(mant_init_o - {{(C_INIT_OW-1){1'b0}}, 1'b1}), {(C_MANT_FP64+5-C_INIT_OW){1'b0}}};
 
     // S_Square Init
-    logic [2*(C_MANT_FP64+4):0] S_Square; // U1.112
-    assign S_Square[2*(C_MANT_FP64+4)-:17] = init_sq_o;
+    logic [2*(C_MANT_FP64+4):0] S_Square; // U2.112  // U1.112 用后者
+    assign S_Square = {init_sq_o, {(2*(C_MANT_FP64+4)-2*(C_INIT_OW-1)){1'b0}}};
 
     // Residual Init
-    logic [2*(C_MANT_FP64+4)+4:0] Residual; // Q5.116
-    logic [C_MANT_FP64+3:0] Residual_Init; // Q1.55
+    logic signed [2*(C_MANT_FP64+4)+4:0] Residual; // Q8.112 // Q
+    logic signed [C_MANT_FP64+3:0] Residual_Init; // Q1.55
     
     assign Residual_Init = mant_norm_i - {init_cb_o, 31'b0}; // X-S^3
-    assign Residual[2*(C_MANT_FP64+4)+4-:60] = ({{4{Residual_Init[C_MANT_FP64+3]}}, Residual_Init}) << 'd10; // 2^10
-
+    assign Residual = ({{4{Residual_Init[C_MANT_FP64+3]}}, Residual_Init, {(C_MANT_FP64+5){1'b0}}}) <<< 10;
+    
     // 寄存器
     logic [C_MANT_FP64+4:0] S_N;  // U1.56
     logic [C_MANT_FP64+4:0] SM_N; // U1.56
-    logic [2*(C_MANT_FP64+4):0] S_Square_N; // U1.112
-    logic [2*(C_MANT_FP64+4)+4:0] Residual_N; // Q5.116
+    logic [2*(C_MANT_FP64+4):0] S_Square_N; // U2.112
+    logic signed [2*(C_MANT_FP64+4)+4:0] Residual_N; // Q8.112
 
     logic [C_MANT_FP64+4:0] S_Reg;  // U1.56
     logic [C_MANT_FP64+4:0] SM_Reg; // U1.56
-    logic [2*(C_MANT_FP64+4):0] S_Square_Reg; // U1.112
-    logic [2*(C_MANT_FP64+4)+4:0] Residual_Reg; // Q5.116
+    logic [2*(C_MANT_FP64+4):0] S_Square_Reg; // U2.112
+    logic signed [2*(C_MANT_FP64+4)+4:0] Residual_Reg; // Q8.112
 
     assign S_N = (start_dly_i)?S:S_Reg;
     assign SM_N = (start_dly_i)?SM:SM_Reg;
-    assign S_Square_N = (start_dly_i)?S_Square_N:S_Square_Reg;
-    assign Residual_N = (start_dly_i)?Residual_N:Residual_Reg;
+    assign S_Square_N = (start_dly_i)?S_Square:S_Square_Reg;
+    assign Residual_N = (start_dly_i)?Residual:Residual_Reg;
 
     always_ff @(posedge clk_i or negedge rst_ni) begin
         if (~rst_ni) begin
@@ -250,17 +250,55 @@ module fcbrt_core(
         end
     end
 
-
-    logic [2:0] cycle_cnt;
+    // 初始化FSM
+    logic [2:0] Final_cycle;
 
     always_comb begin
         case(fmt_sel_i)
-            // C_FS_SP: cycle_cnt = 
-            C_FS_DP: cycle_cnt = 'd7;
+            // C_FS_SP: 
+            C_FS_DP: Final_cycle = 'd7;
         endcase
     end
 
+    // 下一级控制信号
+    logic core_start;
 
+    always_ff @(posedge clk_i or negedge rst_ni) begin
+        if (~rst_ni) begin
+            core_start <= '0;
+        end else begin
+            core_start <= start_dly_i;
+        end
+    end
+
+    logic Fsm_enable; // 迭代单元有限状态机
+    logic [2:0] cycle_cnt;
+
+    always_ff @(posedge clk_i or negedge rst_ni) begin
+        if (~rst_ni) begin
+            Fsm_enable <= '0;
+        end else if (start_dly_i) begin
+            Fsm_enable <= 1'b1;
+        end else if (cycle_cnt == Final_cycle) begin
+            Fsm_enable <= 1'b0;
+        end else begin
+            Fsm_enable <= Fsm_enable;
+        end
+    end
+
+    always_ff @(posedge clk_i or negedge rst_ni) begin
+        if (~rst_ni) begin
+            cycle_cnt <= '0;
+        end else if (Fsm_enable) begin
+            if(cycle_cnt == Final_cycle) begin
+                cycle_cnt <= '0;
+            end else begin
+                cycle_cnt <= cycle_cnt + 3'b1;
+            end
+        end else begin
+            cycle_cnt <= '0;
+        end
+    end
 
 
 

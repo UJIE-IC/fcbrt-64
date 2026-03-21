@@ -1,4 +1,4 @@
-module CLA_15bit (
+module CLA_15bit(
     input logic [14:0] A,
     input logic [14:0] B,
     input logic C_in,
