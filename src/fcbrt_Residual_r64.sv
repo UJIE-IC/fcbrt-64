@@ -825,6 +825,7 @@ module fcbrt_Residual_r64 (
         endcase
     end
 
+    // CSA压缩树
     CSA4_2 #(.W(117)) u_Residual1_mid1_0 (
         .a_i(Residual0_c_o),
         .b_i(Residual0_s_o),
