@@ -443,6 +443,43 @@ module fcbrt_core(
         end
     end
 
+    // 指数的旁路处理
+    logic [C_EXP_FP64-1:0] x_udiv3_i;
+    logic [C_EXP_FP64-1:0] q_udiv3_o;
+    logic [C_EXP_FP64-1:0] exp_bias_nonc;
+    logic [C_EXP_FP64-1:0] exp_bias_nonc_reg;   // 没有经过后处理，带有偏置
+    
+    assign x_udiv3_i = (core_start)?(is_subnormal_i?({{(C_EXP_FP64-C_LZCNT){1'b0}}, lzcnt_i}):exp_bias_i);
+
+    fcbrt_udiv3 #(
+        .W 	( C_EXP_FP64  ))
+    u_fcbrt_udiv3(
+        .x_i 	( x_udiv3_i  ),
+        .q_o 	( q_udiv3_o  )
+    );
+
+    always_comb begin
+        if (is_subnormal_i) begin
+            case(shift_num_i)
+                2'd3: exp_bias_nonc = 11'd682 - q_udiv3_o;
+                2'd1, 2'd2: exp_bias_nonc = 11'd681 - q_udiv3_o;
+                default: exp_bias_nonc = '0;
+            endcase
+        end else begin
+            exp_bias_nonc = 11'd682 + q_udiv3_o;
+        end
+    end
+
+    always_ff @(posedge clk_i or negedge rst_ni) begin
+        if (~rst_ni) begin
+            exp_bias_nonc_reg <= '0;
+        end else if (cycle_cnt == Final_cycle) begin
+            exp_bias_nonc_reg <= exp_bias_nonc;
+        end else begin
+            exp_bias_nonc_reg <= exp_bias_nonc_reg;
+        end
+    end
+
     // 后处理的开始信号
     logic start_N;
     logic start_P;
@@ -457,15 +494,11 @@ module fcbrt_core(
         end
     end
 
-
     // 输出信号
     assign start_o = start_P;
     assign special_case_o = special_case_i;
-    assign sticky_o = (Residual_c_Reg + Residual_s_Reg) != '0;
+    assign sticky_o = ((Residual_c_Reg + Residual_s_Reg) != '0);
     assign mant_o = S_Reg;
-
-
-
-
+    assign exp_bias_o = exp_bias_nonc_reg;
 
 endmodule
