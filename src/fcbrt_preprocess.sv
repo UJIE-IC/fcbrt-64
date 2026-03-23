@@ -17,7 +17,7 @@ module fcbrt_preprocess(
     
     output logic sign_o,
     output logic [1:0] shift_num_o,                 // 尾数右移位数，即指数需要加上的位数
-    output logic [C_EXP_FP64-1:0] exp_bias_o, // 带有偏置的
+    output logic [C_EXP_FP64-1:0] exp_bias_o,       // 带有偏置的
     output logic [C_MANT_FP64+3:0] mant_norm_o,     // 归一化尾数，0.125-1
 
     output logic [C_LZCNT-1:0] lzcnt_o,             // 前导零计数

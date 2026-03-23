@@ -5,8 +5,7 @@ module fcbrt_udiv3 #(
     output logic [W-1:0] q_o
 );
 
-    // 在 x_i <= 2047 时，下面恒等式精确成立：
-    //   floor(x_i / 3) = (x_i * 683) >> 11
+    // floor(x_i / 3) = (x_i * 683) >> 11
     // 其中：683 = 2^9 + 2^7 + 2^5 + 2^3 + 2^1 + 2^0
 
     localparam  MW = W + 10;

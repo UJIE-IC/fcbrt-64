@@ -19,7 +19,7 @@ module fcbrt_core(
 
     output logic ready_o,
     output logic start_o,
-    output logic [C_MANT_FP64+3:0] mant_o,
+    output logic [C_MANT_FP64+4:0] mant_o,
     output logic [C_EXP_FP64-1:0] exp_bias_o,
     output logic special_case_o,
     output logic sticky_o                       // 舍入粘滞位
@@ -31,7 +31,7 @@ module fcbrt_core(
             ready_o <= 1'b1;
         end else if (start_i&&ready_o) begin
             ready_o <= 1'b0;
-        end else if (start_o) begin         // 待修改 cycle = 7的那个上升沿的下一个上升沿 输入一个信号？
+        end else if (start_o) begin         
             ready_o <= 1'b1;
         end else begin
             ready_o <= ready_o;
@@ -449,7 +449,7 @@ module fcbrt_core(
     logic [C_EXP_FP64-1:0] exp_bias_nonc;
     logic [C_EXP_FP64-1:0] exp_bias_nonc_reg;   // 没有经过后处理，带有偏置
     
-    assign x_udiv3_i = (core_start)?(is_subnormal_i?({{(C_EXP_FP64-C_LZCNT){1'b0}}, lzcnt_i}):exp_bias_i);
+    assign x_udiv3_i = (core_start)?(is_subnormal_i?({{(C_EXP_FP64-C_LZCNT){1'b0}}, lzcnt_i}):exp_bias_i):'0;
 
     fcbrt_udiv3 #(
         .W 	( C_EXP_FP64  ))
