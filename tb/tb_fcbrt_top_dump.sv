@@ -1,0 +1,120 @@
+`timescale 1ns/1ps
+import fcbrt_defs::*;
+
+module tb_fcbrt_top_dump;
+
+    logic clk_i;
+    logic rst_ni;
+    logic fmt_sel_i;
+    logic start_i;
+    logic [C_RM-1:0] rm_i;
+    logic [C_OP_FP64-1:0] operand_i;
+
+    logic [C_OP_FP64-1:0] result_o;
+    logic ready_o;
+    logic done_o;
+
+    fcbrt_top dut (
+        .clk_i   (clk_i),
+        .rst_ni  (rst_ni),
+        .fmt_sel_i(fmt_sel_i),
+        .start_i (start_i),
+        .rm_i    (rm_i),
+        .operand_i(operand_i),
+        .result_o(result_o),
+        .ready_o (ready_o),
+        .done_o  (done_o)
+    );
+
+    initial begin
+        clk_i = 1'b0;
+        forever #5 clk_i = ~clk_i;
+    end
+
+    integer fin;
+    integer fout;
+    integer scan_ret;
+    integer case_idx;
+    integer cycle_wait;
+    reg [63:0] input_word;
+
+    localparam int MAX_WAIT_READY_CYCLES = 1000;
+    localparam int MAX_WAIT_DONE_CYCLES  = 1000;
+
+    initial begin
+        rst_ni    = 1'b0;
+        fmt_sel_i = 1'b1;
+        rm_i      = C_RM_NEAREST;
+        start_i   = 1'b0;
+        operand_i = 64'h0;
+        case_idx  = 0;
+
+        fin = $fopen("input_hex.txt", "r");
+        if (fin == 0) begin
+            $display("[TB][ERROR] Cannot open input_hex.txt");
+            $finish;
+        end
+
+        fout = $fopen("dut_output_hex.txt", "w");
+        if (fout == 0) begin
+            $display("[TB][ERROR] Cannot open dut_output_hex.txt");
+            $finish;
+        end
+
+        repeat (10) @(posedge clk_i);
+        rst_ni = 1'b1;
+        repeat (5) @(posedge clk_i);
+
+        while (!$feof(fin)) begin
+            scan_ret = $fscanf(fin, "%h\n", input_word);
+            if (scan_ret != 1) begin
+                if (!$feof(fin)) begin
+                    $display("[TB][WARN] Skip malformed line at case %0d", case_idx);
+                end
+                break;
+            end
+
+            cycle_wait = 0;
+            while (ready_o !== 1'b1 && cycle_wait < MAX_WAIT_READY_CYCLES) begin
+                @(posedge clk_i);
+                cycle_wait = cycle_wait + 1;
+            end
+            if (ready_o !== 1'b1) begin
+                $display("[TB][ERROR] Timeout waiting ready_o at case %0d", case_idx);
+                $fclose(fin);
+                $fclose(fout);
+                $finish;
+            end
+
+            operand_i = input_word;
+            start_i   = 1'b1;
+            @(posedge clk_i);
+            start_i   = 1'b0;
+
+            cycle_wait = 0;
+            while (done_o !== 1'b1 && cycle_wait < MAX_WAIT_DONE_CYCLES) begin
+                @(posedge clk_i);
+                cycle_wait = cycle_wait + 1;
+            end
+            if (done_o !== 1'b1) begin
+                $display("[TB][ERROR] Timeout waiting done_o at case %0d, input=%h", case_idx, input_word);
+                $fclose(fin);
+                $fclose(fout);
+                $finish;
+            end
+
+            $fwrite(fout, "%016h\n", result_o);
+            $display("[TB] case=%0d input=%016h output=%016h", case_idx, input_word, result_o);
+            case_idx = case_idx + 1;
+
+            @(posedge clk_i);
+        end
+
+        $display("[TB] Finished. Total cases = %0d", case_idx);
+        $fclose(fin);
+        $fclose(fout);
+        repeat (10) @(posedge clk_i);
+        $finish;
+    end
+
+endmodule

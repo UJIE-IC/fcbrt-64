@@ -32,12 +32,12 @@ module fcbrt_top(
     logic fmt_sel_o;
     logic sign_o;
 
-    logic                   	start_o;
+    logic start_o;
 
-    logic [C_MANT_FP64+4:0] 	mant_o;
-    logic [C_EXP_FP64-1:0]  	exp_bias_core_o;
-    logic                   	special_case_core_o;
-    logic                   	sticky_o;
+    logic [C_MANT_FP64+4:0] mant_o;
+    logic [C_EXP_FP64-1:0] exp_bias_core_o;
+    logic special_case_core_o;
+    logic sticky_o;
 
     fcbrt_preprocess u_fcbrt_preprocess(
         .clk_i          	( clk_i           ),

@@ -7,7 +7,7 @@ module fcbrt_Sq_r64(
     input  logic signed [2:0] s_sel0_i,
     input  logic signed [2:0] s_sel1_i,
     input  logic signed [2:0] s_sel2_i,
-    input  logic [3:0] cycle_cnt_i,
+    input  logic [2:0] cycle_cnt_i,
 
     output logic [112:0] Sq0_c_o,
     output logic [112:0] Sq0_s_o,

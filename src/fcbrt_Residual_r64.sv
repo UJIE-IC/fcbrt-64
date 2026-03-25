@@ -13,7 +13,7 @@ module fcbrt_Residual_r64 (
     input  logic signed [2:0] s_sel0_i,
     input  logic signed [2:0] s_sel1_i,
     input  logic signed [2:0] s_sel2_i,
-    input  logic [3:0] cycle_cnt_i,
+    input  logic [2:0] cycle_cnt_i,
     output logic [116:0] Residual0_c_o,
     output logic [116:0] Residual0_s_o,
     output logic [116:0] Residual1_c_o,

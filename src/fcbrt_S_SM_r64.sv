@@ -4,12 +4,10 @@ module fcbrt_S_SM_r64(
     input  logic signed [2:0] s_sel0_i,
     input  logic signed [2:0] s_sel1_i,
     input  logic signed [2:0] s_sel2_i,
-    input  logic [3:0] cycle_cnt_i,
+    input  logic [2:0] cycle_cnt_i,
 
     output logic [56:0] S1_mid_o,
-    output logic [56:0] SM1_mid_o,
     output logic [56:0] S2_mid_o,
-    output logic [56:0] SM2_mid_o,
     output logic [56:0] S_o,
     output logic [56:0] SM_o
 );
@@ -253,7 +251,6 @@ module fcbrt_S_SM_r64(
     assign S1_in = S0_out;
     assign SM1_in = SM0_out;
     assign S1_mid_o = S0_out;
-    assign SM1_mid_o = SM0_out;
 
     // stage1 S/SM path
     always_comb begin
@@ -492,7 +489,6 @@ module fcbrt_S_SM_r64(
     assign S2_in = S1_out;
     assign SM2_in = SM1_out;
     assign S2_mid_o = S1_out;
-    assign SM2_mid_o = SM1_out;
 
     // stage2 S/SM path
     always_comb begin

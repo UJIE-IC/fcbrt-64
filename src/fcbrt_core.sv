@@ -31,7 +31,7 @@ module fcbrt_core(
             ready_o <= 1'b1;
         end else if (start_i&&ready_o) begin
             ready_o <= 1'b0;
-        end else if (start_o) begin         
+        end else if (start_o||special_case_i) begin         
             ready_o <= 1'b1;
         end else begin
             ready_o <= ready_o;
@@ -236,7 +236,7 @@ module fcbrt_core(
         case(fmt_sel_i)
             // C_FS_SP: 
             C_FS_DP: Final_cycle = 'd7;
-            default: Final_cycle = '0;
+            default: Final_cycle = 'd0;
         endcase
     end
 
@@ -448,8 +448,18 @@ module fcbrt_core(
     logic [C_EXP_FP64-1:0] q_udiv3_o;
     logic [C_EXP_FP64-1:0] exp_bias_nonc;
     logic [C_EXP_FP64-1:0] exp_bias_nonc_reg;   // 没有经过后处理，带有偏置
+
+    logic [C_EXP_FP64-1:0] x_udiv3_i_Reg;
     
-    assign x_udiv3_i = (core_start)?(is_subnormal_i?({{(C_EXP_FP64-C_LZCNT){1'b0}}, lzcnt_i}):exp_bias_i):'0;
+    assign x_udiv3_i = (core_start)?(is_subnormal_i?({{(C_EXP_FP64-C_LZCNT){1'b0}}, lzcnt_i}):exp_bias_i):x_udiv3_i_Reg;
+
+    always_ff @(posedge clk_i or negedge rst_ni) begin
+        if (~rst_ni) begin
+            x_udiv3_i_Reg <= '0;
+        end else begin
+            x_udiv3_i_Reg <= x_udiv3_i;
+        end
+    end
 
     fcbrt_udiv3 #(
         .W 	( C_EXP_FP64  ))
@@ -484,7 +494,7 @@ module fcbrt_core(
     logic start_N;
     logic start_P;
 
-    assign start_N = (cycle_cnt == Final_cycle)?1'b1:1'b0;
+    assign start_N = ((cycle_cnt == Final_cycle)&&Fsm_enable)?1'b1:1'b0;
 
     always_ff @(posedge clk_i or negedge rst_ni) begin
         if (~rst_ni) begin

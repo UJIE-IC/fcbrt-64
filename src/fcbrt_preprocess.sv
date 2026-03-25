@@ -86,7 +86,7 @@ module fcbrt_preprocess(
     logic special_case_N;
     logic special_case_P;
 
-    assign special_case_N = (start_i&&ready_i)?(is_zero_N||is_inf_N||is_NaN_N):special_case_P;
+    assign special_case_N = (start_i&&ready_i)?(is_zero_N||is_inf_N||is_NaN_N):'0;
 
     always_ff @(posedge clk_i or negedge rst_ni) begin
         if (~rst_ni) begin

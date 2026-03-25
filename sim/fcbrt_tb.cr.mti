@@ -1,0 +1,130 @@
+G:/FPU/r64_SRT_fcbrt/src/fcbrt_S_SM_r64.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/fcbrt_S_SM_r64.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling module fcbrt_S_SM_r64
+
+Top level modules:
+	fcbrt_S_SM_r64
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/common_cells/fcbrt_udiv3.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/common_cells/fcbrt_udiv3.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling module fcbrt_udiv3
+
+Top level modules:
+	fcbrt_udiv3
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/common_cells/assertions.svh {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/common_cells/assertions.svh
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/common_cells/cf_math_pkg.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/common_cells/cf_math_pkg.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling package cf_math_pkg
+
+Top level modules:
+	--none--
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_preprocess.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/fcbrt_preprocess.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling package fcbrt_preprocess_sv_unit
+-- Importing package fcbrt_defs
+-- Compiling module fcbrt_preprocess
+
+Top level modules:
+	fcbrt_preprocess
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/common_cells/CSA4_2.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/common_cells/CSA4_2.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling module CSA4_2
+
+Top level modules:
+	CSA4_2
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssquare_r64.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssquare_r64.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling module fcbrt_Sq_r64
+
+Top level modules:
+	fcbrt_Sq_r64
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssel.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssel.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling module fcbrt_Ssel
+
+Top level modules:
+	fcbrt_Ssel
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_ML_PLAC.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/fcbrt_ML_PLAC.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling module fcbrt_ML_PLAC
+
+Top level modules:
+	fcbrt_ML_PLAC
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_defs.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/fcbrt_defs.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling package fcbrt_defs
+
+Top level modules:
+	--none--
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/tb/tb_fcbrt_top_dump.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/tb/tb_fcbrt_top_dump.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling package tb_fcbrt_top_dump_sv_unit
+-- Importing package fcbrt_defs
+-- Compiling module tb_fcbrt_top_dump
+
+Top level modules:
+	tb_fcbrt_top_dump
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_top.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/fcbrt_top.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling package fcbrt_top_sv_unit
+-- Importing package fcbrt_defs
+-- Compiling module fcbrt_top
+
+Top level modules:
+	fcbrt_top
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_postprocess.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/fcbrt_postprocess.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling package fcbrt_postprocess_sv_unit
+-- Importing package fcbrt_defs
+-- Compiling module fcbrt_postprocess
+
+Top level modules:
+	fcbrt_postprocess
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/common_cells/CLA_15bit.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/common_cells/CLA_15bit.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling module CLA_15bit
+
+Top level modules:
+	CLA_15bit
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_core.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/fcbrt_core.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling package fcbrt_core_sv_unit
+-- Importing package fcbrt_defs
+-- Compiling module fcbrt_core
+
+Top level modules:
+	fcbrt_core
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/common_cells/lzc.sv {2 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/common_cells/lzc.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling module lzc
+-- Importing package cf_math_pkg
+** Warning: G:/FPU/r64_SRT_fcbrt/src/common_cells/lzc.sv(57): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
+** Warning: G:/FPU/r64_SRT_fcbrt/src/common_cells/lzc.sv(57): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
+** Warning: G:/FPU/r64_SRT_fcbrt/src/common_cells/lzc.sv(58): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
+
+Top level modules:
+	lzc
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r64.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r64.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling module fcbrt_Residual_r64
+
+Top level modules:
+	fcbrt_Residual_r64
+
+} {} {}}
