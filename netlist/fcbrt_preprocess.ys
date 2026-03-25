@@ -1,3 +1,0 @@
-read_verilog -sv -formal -overwrite {workspace}/src/fcbrt_preprocess.sv
-design -reset-vlog; proc;
-write_json {workspace}/netlist/fcbrt_preprocess.json

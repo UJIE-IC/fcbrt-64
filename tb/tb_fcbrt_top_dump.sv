@@ -49,13 +49,13 @@ module tb_fcbrt_top_dump;
         operand_i = 64'h0;
         case_idx  = 0;
 
-        fin = $fopen("input_hex.txt", "r");
+        fin = $fopen("../result/input_hex.txt", "r");
         if (fin == 0) begin
             $display("[TB][ERROR] Cannot open input_hex.txt");
             $finish;
         end
 
-        fout = $fopen("dut_output_hex.txt", "w");
+        fout = $fopen("../result/dut_output_hex.txt", "w");
         if (fout == 0) begin
             $display("[TB][ERROR] Cannot open dut_output_hex.txt");
             $finish;

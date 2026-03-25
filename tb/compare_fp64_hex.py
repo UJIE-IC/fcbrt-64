@@ -7,9 +7,9 @@ def load_lines(path):
 
 
 def main():
-    golden = sys.argv[1] if len(sys.argv) > 1 else 'output_hex.txt'
-    dut = sys.argv[2] if len(sys.argv) > 2 else 'dut_output_hex.txt'
-    inputs = sys.argv[3] if len(sys.argv) > 3 else 'input_hex.txt'
+    golden = sys.argv[1] if len(sys.argv) > 1 else '../result/output_hex.txt'
+    dut = sys.argv[2] if len(sys.argv) > 2 else '../result/dut_output_hex.txt'
+    inputs = sys.argv[3] if len(sys.argv) > 3 else '../result/input_hex.txt'
 
     golden_lines = load_lines(golden)
     dut_lines = load_lines(dut)

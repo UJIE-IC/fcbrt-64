@@ -360,12 +360,12 @@ def generate_input_set(
 # main generation entry
 # ============================================================
 def generate_vector_files(
-    input_txt: str = "input_hex.txt",
-    output_txt: str = "output_hex.txt",
-    n_rand_normal: int = 1000,
-    n_rand_subnormal: int = 200,
-    n_cube_neighbors: int = 500,
-    seed: int = 1
+    input_txt: str = "../result/input_hex.txt",
+    output_txt: str = "../result/output_hex.txt",
+    n_rand_normal: int = 10000,
+    n_rand_subnormal: int = 2000,
+    n_cube_neighbors: int = 5000,
+    seed: int = 2
 ):
     inputs = generate_input_set(
         n_rand_normal=n_rand_normal,
@@ -390,10 +390,10 @@ def generate_vector_files(
 
 if __name__ == "__main__":
     generate_vector_files(
-        input_txt="input_hex.txt",
-        output_txt="output_hex.txt",
-        n_rand_normal=1000,
-        n_rand_subnormal=200,
-        n_cube_neighbors=500,
-        seed=1
+        input_txt="../result/input_hex.txt",
+        output_txt="../result/output_hex.txt",
+        n_rand_normal=10000,
+        n_rand_subnormal=2000,
+        n_cube_neighbors=5000,
+        seed=2
     )
