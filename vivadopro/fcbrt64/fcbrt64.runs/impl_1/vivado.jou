@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Thu Mar 26 13:52:02 2026
+# Process ID: 39908
+# Current directory: G:/FPU/r64_SRT_fcbrt/vivadopro/fcbrt64/fcbrt64.runs/impl_1
+# Command line: vivado.exe -log fcbrt_top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source fcbrt_top.tcl -notrace
+# Log file: G:/FPU/r64_SRT_fcbrt/vivadopro/fcbrt64/fcbrt64.runs/impl_1/fcbrt_top.vdi
+# Journal file: G:/FPU/r64_SRT_fcbrt/vivadopro/fcbrt64/fcbrt64.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source fcbrt_top.tcl -notrace

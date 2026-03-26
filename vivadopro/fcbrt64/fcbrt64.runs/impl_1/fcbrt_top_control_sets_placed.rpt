@@ -1,0 +1,85 @@
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
+| Date         : Thu Mar 26 13:53:14 2026
+| Host         : kaihuaxc running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file fcbrt_top_control_sets_placed.rpt
+| Design       : fcbrt_top
+| Device       : xc7a100t
+--------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Number of unique control sets                            |    17 |
+| Unused register locations in slices containing registers |    71 |
++----------------------------------------------------------+-------+
+
+
+2. Histogram
+------------
+
++--------+--------------+
+| Fanout | Control Sets |
++--------+--------------+
+|      1 |            2 |
+|      3 |            1 |
+|     11 |            1 |
+|     15 |            1 |
+|    16+ |           12 |
++--------+--------------+
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              66 |           32 |
+| No           | No                    | Yes                    |              36 |           27 |
+| No           | Yes                   | No                     |               0 |            0 |
+| Yes          | No                    | No                     |               0 |            0 |
+| Yes          | No                    | Yes                    |             947 |          535 |
+| Yes          | Yes                   | No                     |               0 |            0 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++----------------------+-----------------------------+-----------------------------------------------+------------------+----------------+
+|     Clock Signal     |        Enable Signal        |                Set/Reset Signal               | Slice Load Count | Bel Load Count |
++----------------------+-----------------------------+-----------------------------------------------+------------------+----------------+
+|  clk_i_IBUF_BUFG     |                             | u_fcbrt_core/cycle_cnt[2]_rep__6_i_2_n_0      |                1 |              1 |
+|  clk_i_IBUF_BUFG     |                             | u_fcbrt_core/S_Square_s_Reg[62]_i_2_n_0       |                1 |              1 |
+|  clk_i_IBUF_BUFG     |                             |                                               |                1 |              3 |
+|  clk_i_IBUF_BUFG     | u_fcbrt_core/Fsm_enable0    | u_fcbrt_preprocess/rst_ni                     |                5 |             11 |
+|  clk_i_IBUF_BUFG     |                             | u_fcbrt_preprocess/rst_ni                     |               11 |             15 |
+|  clk_i_IBUF_BUFG     | u_fcbrt_core/Residual_s_Reg | u_fcbrt_preprocess/rst_ni                     |                9 |             17 |
+|  clk_i_IBUF_BUFG     |                             | u_fcbrt_postprocess/rst_ni                    |               14 |             19 |
+|  clk_i_IBUF_BUFG     | u_fcbrt_core/Residual_s_Reg | u_fcbrt_postprocess/rst_ni                    |               25 |             40 |
+|  fmt_sel_i_IBUF_BUFG |                             |                                               |               31 |             63 |
+|  clk_i_IBUF_BUFG     | u_fcbrt_core/E[0]           | u_fcbrt_postprocess/rst_ni                    |               26 |             64 |
+|  clk_i_IBUF_BUFG     | u_fcbrt_core/start_N        | u_fcbrt_preprocess/rst_ni                     |               39 |             80 |
+|  clk_i_IBUF_BUFG     | u_fcbrt_core/Residual_s_Reg | u_fcbrt_core/S_Square_c_Reg_Prev[112]_i_2_n_0 |               55 |            122 |
+|  clk_i_IBUF_BUFG     | u_fcbrt_core/Residual_s_Reg | u_fcbrt_core/cycle_cnt[2]_rep__6_i_2_n_0      |               45 |            122 |
+|  clk_i_IBUF_BUFG     | u_fcbrt_core/Residual_s_Reg | u_fcbrt_core/S_Square_s_Reg[62]_i_2_n_0       |               89 |            122 |
+|  clk_i_IBUF_BUFG     | u_fcbrt_core/Residual_s_Reg | u_fcbrt_core/Residual_s_Reg[106]_i_2_n_0      |               82 |            123 |
+|  clk_i_IBUF_BUFG     | u_fcbrt_core/Residual_s_Reg | u_fcbrt_core/Residual_s_Reg[32]_i_2_n_0       |               83 |            123 |
+|  clk_i_IBUF_BUFG     | u_fcbrt_core/Residual_s_Reg | u_fcbrt_core/S_Square_c_Reg[112]_i_3_n_0      |               77 |            123 |
++----------------------+-----------------------------+-----------------------------------------------+------------------+----------------+
+
+
