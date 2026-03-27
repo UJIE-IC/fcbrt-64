@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7a100tcsg324-3" LaunchTime="1774504315">
+<GenRun Id="impl_1" LaunchPart="xc7a100tcsg324-3" LaunchTime="1774530752">
   <File Type="BITSTR-BMM" Name="fcbrt_top_bd.bmm"/>
   <File Type="OPT-METHODOLOGY-DRC" Name="fcbrt_top_methodology_drc_opted.rpt"/>
   <File Type="INIT-TIMING" Name="fcbrt_top_timing_summary_init.rpt"/>
@@ -99,14 +99,14 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../../src/fcbrt_Residual_r64.sv">
+    <File Path="$PPRDIR/../../src/fcbrt_Residual_r4.sv">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../../src/fcbrt_S_SM_r64.sv">
+    <File Path="$PPRDIR/../../src/fcbrt_S_SM_r4.sv">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -120,7 +120,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../../src/fcbrt_Ssquare_r64.sv">
+    <File Path="$PPRDIR/../../src/fcbrt_Ssquare_r4.sv">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -207,9 +207,7 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
-      <Desc>Default settings for Implementation.</Desc>
-    </StratHandle>
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
     <Step Id="init_design"/>
     <Step Id="opt_design"/>
     <Step Id="power_opt_design"/>

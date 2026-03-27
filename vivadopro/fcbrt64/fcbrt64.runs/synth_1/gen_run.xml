@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-3" LaunchTime="1774504156">
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-3" LaunchTime="1774530651">
   <File Type="PA-TCL" Name="fcbrt_top.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="fcbrt_top_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="fcbrt_top_reports.tcl"/>
@@ -39,14 +39,14 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../../src/fcbrt_Residual_r64.sv">
+    <File Path="$PPRDIR/../../src/fcbrt_Residual_r4.sv">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../../src/fcbrt_S_SM_r64.sv">
+    <File Path="$PPRDIR/../../src/fcbrt_S_SM_r4.sv">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -60,7 +60,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../../src/fcbrt_Ssquare_r64.sv">
+    <File Path="$PPRDIR/../../src/fcbrt_Ssquare_r4.sv">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -147,9 +147,7 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
-      <Desc>Vivado Synthesis Defaults</Desc>
-    </StratHandle>
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
     <Step Id="synth_design"/>
   </Strategy>
 </GenRun>

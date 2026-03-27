@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-| Date             : Thu Mar 26 13:54:35 2026
+| Date             : Thu Mar 26 21:14:07 2026
 | Host             : kaihuaxc running 64-bit major release  (build 9200)
 | Command          : report_power -file fcbrt_top_power_routed.rpt -pb fcbrt_top_power_summary_routed.pb -rpx fcbrt_top_power_routed.rpx
 | Design           : fcbrt_top
@@ -30,14 +30,14 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 1.576        |
+| Total On-Chip Power (W)  | 0.424        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 1.480        |
-| Device Static (W)        | 0.096        |
+| Dynamic (W)              | 0.332        |
+| Device Static (W)        | 0.092        |
 | Effective TJA (C/W)      | 4.6          |
-| Max Ambient (C)          | 92.8         |
-| Junction Temperature (C) | 32.2         |
+| Max Ambient (C)          | 98.1         |
+| Junction Temperature (C) | 26.9         |
 | Confidence Level         | Low          |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
@@ -52,18 +52,18 @@ Table of Contents
 +----------------+-----------+----------+-----------+-----------------+
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
-| Clocks         |     0.017 |        3 |       --- |             --- |
-| Slice Logic    |     0.617 |    11968 |       --- |             --- |
-|   LUT as Logic |     0.615 |     9440 |     63400 |           14.89 |
-|   CARRY4       |     0.001 |      259 |     15850 |            1.63 |
-|   Register     |    <0.001 |     1049 |    126800 |            0.83 |
-|   F7/F8 Muxes  |    <0.001 |        9 |     63400 |            0.01 |
+| Clocks         |     0.015 |        3 |       --- |             --- |
+| Slice Logic    |     0.129 |     6224 |       --- |             --- |
+|   LUT as Logic |     0.127 |     4458 |     63400 |            7.03 |
+|   CARRY4       |    <0.001 |      179 |     15850 |            1.13 |
+|   Register     |    <0.001 |     1048 |    126800 |            0.83 |
+|   F7/F8 Muxes  |    <0.001 |       20 |     63400 |            0.03 |
 |   BUFG         |    <0.001 |        1 |        32 |            3.13 |
-|   Others       |     0.000 |       16 |       --- |             --- |
-| Signals        |     0.831 |    10283 |       --- |             --- |
-| I/O            |     0.015 |      134 |       210 |           63.81 |
-| Static Power   |     0.096 |          |           |                 |
-| Total          |     1.576 |          |           |                 |
+|   Others       |     0.000 |       13 |       --- |             --- |
+| Signals        |     0.175 |     4825 |       --- |             --- |
+| I/O            |     0.014 |      134 |       210 |           63.81 |
+| Static Power   |     0.092 |          |           |                 |
+| Total          |     0.424 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -73,11 +73,11 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     1.485 |       1.465 |      0.020 |
-| Vccaux    |       1.800 |     0.020 |       0.001 |      0.019 |
+| Vccint    |       1.000 |     0.335 |       0.319 |      0.016 |
+| Vccaux    |       1.800 |     0.019 |       0.001 |      0.018 |
 | Vcco33    |       3.300 |     0.000 |       0.000 |      0.000 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
-| Vcco18    |       1.800 |     0.011 |       0.007 |      0.004 |
+| Vcco18    |       1.800 |     0.010 |       0.006 |      0.004 |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |
 | Vcco135   |       1.350 |     0.000 |       0.000 |      0.000 |
 | Vcco12    |       1.200 |     0.000 |       0.000 |      0.000 |
@@ -139,25 +139,19 @@ Table of Contents
 3.1 By Hierarchy
 ----------------
 
-+--------------------------+-----------+
-| Name                     | Power (W) |
-+--------------------------+-----------+
-| fcbrt_top                |     1.480 |
-|   u_fcbrt_core           |     1.450 |
-|     u_fcbrt_ML_PLAC      |     0.002 |
-|     u_fcbrt_Residual_r64 |     0.552 |
-|       u_Residual0_mid1_0 |     0.023 |
-|       u_Residual0_mid2_0 |     0.062 |
-|       u_Residual1_mid1_0 |     0.081 |
-|       u_Residual1_mid2_0 |     0.160 |
-|       u_Residual2_mid1_0 |     0.125 |
-|       u_Residual2_mid1_1 |     0.026 |
-|       u_Residual2_mid2_0 |     0.074 |
-|     u_fcbrt_S_SM_r64     |     0.029 |
-|     u_fcbrt_Ssel_stage0  |     0.825 |
-|     u_fcbrt_udiv3        |     0.001 |
-|   u_fcbrt_postprocess    |     0.002 |
-|   u_fcbrt_preprocess     |     0.011 |
-+--------------------------+-----------+
++-------------------------+-----------+
+| Name                    | Power (W) |
++-------------------------+-----------+
+| fcbrt_top               |     0.332 |
+|   u_fcbrt_core          |     0.308 |
+|     u_fcbrt_ML_PLAC     |     0.001 |
+|     u_fcbrt_Residual_r4 |     0.076 |
+|       u_Residual_mid1_0 |     0.028 |
+|       u_Residual_mid2_0 |     0.048 |
+|     u_fcbrt_S_SM_r4     |     0.007 |
+|     u_fcbrt_Ssel        |     0.193 |
+|   u_fcbrt_postprocess   |     0.001 |
+|   u_fcbrt_preprocess    |     0.008 |
++-------------------------+-----------+
 
 

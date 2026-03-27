@@ -1,0 +1,61 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Thu Mar 26 21:08:39 2026
+# Process ID: 25936
+# Current directory: G:/FPU/r64_SRT_fcbrt/vivadopro/fcbrt64
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent45604 G:\FPU\r64_SRT_fcbrt\vivadopro\fcbrt64\fcbrt64.xpr
+# Log file: G:/FPU/r64_SRT_fcbrt/vivadopro/fcbrt64/vivado.log
+# Journal file: G:/FPU/r64_SRT_fcbrt/vivadopro/fcbrt64\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project G:/FPU/r64_SRT_fcbrt/vivadopro/fcbrt64/fcbrt64.xpr
+CRITICAL WARNING: [Project 1-19] Could not find the file 'G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r64.sv'.
+CRITICAL WARNING: [Project 1-19] Could not find the file 'G:/FPU/r64_SRT_fcbrt/src/fcbrt_S_SM_r64.sv'.
+CRITICAL WARNING: [Project 1-19] Could not find the file 'G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssquare_r64.sv'.
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/Vivado/Vivado/2018.3/data/ip'.
+update_compile_order -fileset sources_1
+add_files -norecurse {G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssquare_r4.sv G:/FPU/r64_SRT_fcbrt/src/fcbrt_S_SM_r4.sv G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r4.sv}
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r64.sv] -no_script -reset -force -quiet
+remove_files  G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r64.sv
+export_ip_user_files -of_objects  [get_files G:/FPU/r64_SRT_fcbrt/src/fcbrt_S_SM_r64.sv] -no_script -reset -force -quiet
+remove_files  G:/FPU/r64_SRT_fcbrt/src/fcbrt_S_SM_r64.sv
+export_ip_user_files -of_objects  [get_files G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssquare_r64.sv] -no_script -reset -force -quiet
+remove_files  G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssquare_r64.sv
+reset_run synth_1
+launch_runs synth_1 -jobs 16
+[Thu Mar 26 21:10:51 2026] Launched synth_1...
+Run output will be captured here: G:/FPU/r64_SRT_fcbrt/vivadopro/fcbrt64/fcbrt64.runs/synth_1/runme.log
+launch_runs impl_1 -jobs 16
+[Thu Mar 26 21:12:33 2026] Launched impl_1...
+Run output will be captured here: G:/FPU/r64_SRT_fcbrt/vivadopro/fcbrt64/fcbrt64.runs/impl_1/runme.log
+open_run impl_1
+INFO: [Netlist 29-17] Analyzing 199 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2018.3
+INFO: [Device 21-403] Loading part xc7a100tcsg324-3
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.281 . Memory (MB): peak = 1777.594 ; gain = 2.305
+Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.281 . Memory (MB): peak = 1777.594 ; gain = 2.305
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1777.648 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+open_run: Time (s): cpu = 00:00:14 ; elapsed = 00:00:12 . Memory (MB): peak = 1976.262 ; gain = 1061.758
+CRITICAL WARNING: [Timing 38-282] The design failed to meet the timing requirements. Please see the timing summary report for details on the timing violations.
+exit
+INFO: [Common 17-206] Exiting Vivado at Thu Mar 26 23:02:11 2026...

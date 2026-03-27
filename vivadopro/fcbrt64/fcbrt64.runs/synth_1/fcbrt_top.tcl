@@ -35,10 +35,10 @@ read_verilog -library xil_defaultlib -sv {
   G:/FPU/r64_SRT_fcbrt/src/common_cells/CSA4_2.sv
   G:/FPU/r64_SRT_fcbrt/src/common_cells/cf_math_pkg.sv
   G:/FPU/r64_SRT_fcbrt/src/fcbrt_ML_PLAC.sv
-  G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r64.sv
-  G:/FPU/r64_SRT_fcbrt/src/fcbrt_S_SM_r64.sv
+  G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r4.sv
+  G:/FPU/r64_SRT_fcbrt/src/fcbrt_S_SM_r4.sv
   G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssel.sv
-  G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssquare_r64.sv
+  G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssquare_r4.sv
   G:/FPU/r64_SRT_fcbrt/src/fcbrt_defs.sv
   G:/FPU/r64_SRT_fcbrt/src/fcbrt_core.sv
   G:/FPU/r64_SRT_fcbrt/src/fcbrt_postprocess.sv

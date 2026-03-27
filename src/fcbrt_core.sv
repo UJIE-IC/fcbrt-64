@@ -230,12 +230,12 @@ module fcbrt_core(
 
     // 迭代开始
     // 初始化FSM
-    logic [2:0] Final_cycle;
+    logic [4:0] Final_cycle;
 
     always_comb begin
         case(fmt_sel_i)
             // C_FS_SP: 
-            C_FS_DP: Final_cycle = 'd7;
+            C_FS_DP: Final_cycle = 'd23;
             default: Final_cycle = 'd0;
         endcase
     end
@@ -252,7 +252,7 @@ module fcbrt_core(
     // end
 
     logic Fsm_enable; // 迭代单元有限状态机
-    logic [2:0] cycle_cnt;
+    logic [4:0] cycle_cnt;
 
     always_ff @(posedge clk_i or negedge rst_ni) begin
         if (~rst_ni) begin
@@ -273,7 +273,7 @@ module fcbrt_core(
             if(cycle_cnt == Final_cycle) begin
                 cycle_cnt <= '0;
             end else begin
-                cycle_cnt <= cycle_cnt + 3'b1;
+                cycle_cnt <= cycle_cnt + 5'b1;
             end
         end else begin
             cycle_cnt <= '0;
@@ -281,120 +281,57 @@ module fcbrt_core(
     end
 
 
-    // S/SM Ssquare Residual r64 path 
-    logic [C_MANT_FP64+4:0] S1_mid_o;
-    //logic [C_MANT_FP64+4:0] SM1_mid_o;
-    logic [C_MANT_FP64+4:0] S2_mid_o;
-    //logic [C_MANT_FP64+4:0] SM2_mid_o;
+    // S/SM Ssquare Residual r4 path 
+
     logic [C_MANT_FP64+4:0] S_o; 
     logic [C_MANT_FP64+4:0] SM_o;
 
-    logic [2*(C_MANT_FP64+4):0] Sq0_c_o;
-    logic [2*(C_MANT_FP64+4):0] Sq0_s_o;
-    logic [2*(C_MANT_FP64+4):0] Sq1_c_o;
-    logic [2*(C_MANT_FP64+4):0] Sq1_s_o;
-    logic [2*(C_MANT_FP64+4):0] Sq2_c_o;
-    logic [2*(C_MANT_FP64+4):0] Sq2_s_o;
+    logic [2*(C_MANT_FP64+4):0] Sq_c_o;
+    logic [2*(C_MANT_FP64+4):0] Sq_s_o;
 
-    logic [2*(C_MANT_FP64+4)+4:0] Residual0_c_o;
-    logic [2*(C_MANT_FP64+4)+4:0] Residual0_s_o;
-    logic [2*(C_MANT_FP64+4)+4:0] Residual1_c_o;
-    logic [2*(C_MANT_FP64+4)+4:0] Residual1_s_o;
-    logic [2*(C_MANT_FP64+4)+4:0] Residual2_c_o;
-    logic [2*(C_MANT_FP64+4)+4:0] Residual2_s_o;
-        
-    logic signed [2:0] s_sel0_i;
-    logic signed [2:0] s_sel1_i;
-    logic signed [2:0] s_sel2_i;
-    logic [6:0] SH0_i; 
-    logic [6:0] SH1_i; 
-    logic [6:0] SH2_i; 
-    logic signed [8:0] ResidualH0_i;
-    logic signed [8:0] ResidualH1_i;
-    logic signed [8:0] ResidualH2_i;
-    logic signed [8:0] ResidualH0;
-    logic signed [8:0] ResidualH1;
-    logic signed [8:0] ResidualH2;
+    logic [2*(C_MANT_FP64+4)+4:0] Residual_c_o;
+    logic [2*(C_MANT_FP64+4)+4:0] Residual_s_o;
+
+    logic signed [2:0] s_sel_i;
+
+    logic [6:0] SH_i; 
+
+    logic signed [8:0] ResidualH_i;
+    logic signed [8:0] ResidualH;
 
     logic [2*(C_MANT_FP64+4):0] S_Square_c_Reg_Prev; // 前一个S_Square 用于检测是否需要对ResiualH作修正处理
     logic [2*(C_MANT_FP64+4):0] S_Square_s_Reg_Prev;
-    logic signed [2:0] s_sel_Reg; //上一个r64迭代最后一个选择
+    logic signed [2:0] s_sel_Reg; //上一个r4迭代的选择
 
-    logic [2*(C_MANT_FP64+4)+1:0] S_Square_Prev0;
-    logic [2*(C_MANT_FP64+4)+1:0] S_Square_Prev1;
-    logic [2*(C_MANT_FP64+4)+1:0] S_Square_Prev2;
-    logic Sq_Prev_Carry0;
-    logic Sq_Prev_Carry1;
-    logic Sq_Prev_Carry2;
+    logic [2*(C_MANT_FP64+4)+1:0] S_Square_Prev;
+    logic Sq_Prev_Carry;
 
     logic [2*(C_MANT_FP64+4):0] S_Square_c_Reg; // r64迭代后的Sq冗余表示
     logic [2*(C_MANT_FP64+4):0] S_Square_s_Reg;
     logic [2*(C_MANT_FP64+4)+4:0] Residual_c_Reg; // r64迭代后的residual冗余表示
     logic [2*(C_MANT_FP64+4)+4:0] Residual_s_Reg;
 
-    assign SH0_i = S_Reg[C_MANT_FP64+4-:7];
-    assign SH1_i = S1_mid_o[C_MANT_FP64+4-:7];
-    assign SH2_i = S2_mid_o[C_MANT_FP64+4-:7];
+    assign SH_i = S_Reg[C_MANT_FP64+4-:7];
 
-    assign ResidualH0 = Residual_c_Reg[2*(C_MANT_FP64+4)+4-:9] + Residual_s_Reg[2*(C_MANT_FP64+4)+4-:9];
-    assign ResidualH1 = Residual0_c_o[2*(C_MANT_FP64+4)+4-:9] + Residual0_s_o[2*(C_MANT_FP64+4)+4-:9];
-    assign ResidualH2 = Residual1_c_o[2*(C_MANT_FP64+4)+4-:9] + Residual1_s_o[2*(C_MANT_FP64+4)+4-:9];
+    assign ResidualH = Residual_c_Reg[2*(C_MANT_FP64+4)+4-:9] + Residual_s_Reg[2*(C_MANT_FP64+4)+4-:9];
 
     // 对ResidualH作修正
     // stage0
-    assign S_Square_Prev0 = {1'b0, S_Square_s_Reg_Prev} + {1'b0, S_Square_c_Reg_Prev};
-    assign Sq_Prev_Carry0 = S_Square_Prev0[2*(C_MANT_FP64+4)+1];
+    assign S_Square_Prev = {1'b0, S_Square_s_Reg_Prev} + {1'b0, S_Square_c_Reg_Prev};
+    assign Sq_Prev_Carry = S_Square_Prev[2*(C_MANT_FP64+4)+1];
 
     always_comb begin
-        if (Sq_Prev_Carry0) begin
+        if (Sq_Prev_Carry) begin
             case(s_sel_Reg)
-                3'sd2: ResidualH0_i = ResidualH0 + 9'b100000000;
-                3'sd1: ResidualH0_i = ResidualH0 + 9'b110000000;
-                3'sd0: ResidualH0_i = ResidualH0;
-                -3'sd1: ResidualH0_i = ResidualH0 - 9'b110000000;
-                -3'sd2: ResidualH0_i = ResidualH0 - 9'b100000000;
-                default: ResidualH0_i = ResidualH0;
+                3'sd2: ResidualH_i = ResidualH + 9'b100000000;
+                3'sd1: ResidualH_i = ResidualH + 9'b110000000;
+                3'sd0: ResidualH_i = ResidualH;
+                -3'sd1: ResidualH_i = ResidualH - 9'b110000000;
+                -3'sd2: ResidualH_i = ResidualH - 9'b100000000;
+                default: ResidualH_i = ResidualH;
             endcase
         end else begin
-            ResidualH0_i = ResidualH0;
-        end
-    end
-
-    // stage1
-    assign S_Square_Prev1 = {1'b0, S_Square_s_Reg} + {1'b0, S_Square_c_Reg};
-    assign Sq_Prev_Carry1 = S_Square_Prev1[2*(C_MANT_FP64+4)+1];
-
-    always_comb begin
-        if (Sq_Prev_Carry1) begin
-            case(s_sel0_i)
-                3'sd2: ResidualH1_i = ResidualH1 + 9'b100000000;
-                3'sd1: ResidualH1_i = ResidualH1 + 9'b110000000;
-                3'sd0: ResidualH1_i = ResidualH1;
-                -3'sd1: ResidualH1_i = ResidualH1 - 9'b110000000;
-                -3'sd2: ResidualH1_i = ResidualH1 - 9'b100000000;
-                default: ResidualH1_i = ResidualH1;
-            endcase
-        end else begin
-            ResidualH1_i = ResidualH1;
-        end
-    end
-
-    //stage2
-    assign S_Square_Prev2 = {1'b0, Sq0_s_o} + {1'b0, Sq0_c_o};
-    assign Sq_Prev_Carry2 = S_Square_Prev2[2*(C_MANT_FP64+4)+1];
-
-    always_comb begin
-        if (Sq_Prev_Carry2) begin
-            case(s_sel1_i)
-                3'sd2: ResidualH2_i = ResidualH2 + 9'b100000000;
-                3'sd1: ResidualH2_i = ResidualH2 + 9'b110000000;
-                3'sd0: ResidualH2_i = ResidualH2;
-                -3'sd1: ResidualH2_i = ResidualH2 - 9'b110000000;
-                -3'sd2: ResidualH2_i = ResidualH2 - 9'b100000000;
-                default: ResidualH2_i = ResidualH2;
-            endcase
-        end else begin
-            ResidualH2_i = ResidualH2;
+            ResidualH_i = ResidualH;
         end
     end
 
@@ -404,7 +341,7 @@ module fcbrt_core(
     logic signed [2*(C_MANT_FP64+4)+4:0] Residual_fix;
 
     always_comb begin
-        if (Sq_Prev_Carry0) begin
+        if (Sq_Prev_Carry) begin
             case (s_sel_Reg)
                 3'sd2: Residual_corr = {5'b10000, {2*(C_MANT_FP64+4){1'b0}}}; 
                 3'sd1: Residual_corr = {5'b11000, {2*(C_MANT_FP64+4){1'b0}}}; 
@@ -422,79 +359,42 @@ module fcbrt_core(
     assign sticky = (Residual_fix != '0);
 
     // S Select
-    fcbrt_Ssel u_fcbrt_Ssel_stage0(
-        .ResidualH_i 	( ResidualH0_i  ),
-        .SH_i        	( SH0_i         ),
-        .S_sel_o     	( s_sel0_i      )
+    fcbrt_Ssel u_fcbrt_Ssel(
+        .ResidualH_i 	( ResidualH_i  ),
+        .SH_i        	( SH_i         ),
+        .S_sel_o     	( s_sel_i      )
     );
 
-    fcbrt_Ssel u_fcbrt_Ssel_stage1(
-        .ResidualH_i 	( ResidualH1_i  ),
-        .SH_i        	( SH1_i         ),
-        .S_sel_o     	( s_sel1_i      )
-    );
 
-    fcbrt_Ssel u_fcbrt_Ssel_stage2(
-        .ResidualH_i 	( ResidualH2_i  ),
-        .SH_i        	( SH2_i         ),
-        .S_sel_o     	( s_sel2_i      )
-    );
-
-    fcbrt_S_SM_r64 u_fcbrt_S_SM_r64(
-        .S0_i        	( S_Reg        ),
-        .SM0_i       	( SM_Reg       ),
-        .s_sel0_i    	( s_sel0_i     ),
-        .s_sel1_i    	( s_sel1_i     ),
-        .s_sel2_i    	( s_sel2_i     ),
+    fcbrt_S_SM_r4 u_fcbrt_S_SM_r4(
+        .S_i        	( S_Reg        ),
+        .SM_i       	( SM_Reg       ),
+        .s_sel_i    	( s_sel_i     ),
         .cycle_cnt_i 	( cycle_cnt    ),
-        .S1_mid_o    	( S1_mid_o     ),
-       // .SM1_mid_o   	( SM1_mid_o    ),
-        .S2_mid_o    	( S2_mid_o     ),
-       //.SM2_mid_o   	( SM2_mid_o    ),
         .S_o         	( S_o          ),
         .SM_o        	( SM_o         )
     );
 
-    fcbrt_Sq_r64 u_fcbrt_Sq_r64(
-        .S0_i        	( S_Reg        ),
-        .S1_i        	( S1_mid_o     ),
-        .S2_i        	( S2_mid_o     ),
-        .Sq0_c_i     	( S_Square_c_Reg      ),
-        .Sq0_s_i     	( S_Square_s_Reg      ),
-        .s_sel0_i    	( s_sel0_i     ),
-        .s_sel1_i    	( s_sel1_i     ),
-        .s_sel2_i    	( s_sel2_i     ),
+    fcbrt_Ssquare_r4 u_fcbrt_Ssquare_r4(
+        .S_i        	( S_Reg        ),
+        .Sq_c_i     	( S_Square_c_Reg      ),
+        .Sq_s_i     	( S_Square_s_Reg      ),
+        .s_sel_i    	( s_sel_i     ),
         .cycle_cnt_i 	( cycle_cnt    ),
-        .Sq0_c_o     	( Sq0_c_o      ),
-        .Sq0_s_o     	( Sq0_s_o      ),
-        .Sq1_c_o     	( Sq1_c_o      ),
-        .Sq1_s_o     	( Sq1_s_o      ),
-        .Sq2_c_o     	( Sq2_c_o      ),
-        .Sq2_s_o     	( Sq2_s_o      )
+        .Sq_c_o     	( Sq_c_o      ),
+        .Sq_s_o     	( Sq_s_o      )
     );
 
-    fcbrt_Residual_r64 u_fcbrt_Residual_r64(
-        .Residual0_c_i 	( Residual_c_Reg ),
-        .Residual0_s_i 	( Residual_s_Reg ),
-        .Sq0_c_i       	( S_Square_c_Reg ),
-        .Sq0_s_i       	( S_Square_s_Reg ),
-        .Sq1_c_i       	( Sq0_c_o        ),
-        .Sq1_s_i       	( Sq0_s_o        ),
-        .Sq2_c_i       	( Sq1_c_o        ),
-        .Sq2_s_i       	( Sq1_s_o        ),
-        .S0_i          	( S_Reg          ),
-        .S1_i          	( S1_mid_o       ),
-        .S2_i          	( S2_mid_o       ),
-        .s_sel0_i      	( s_sel0_i       ),
-        .s_sel1_i      	( s_sel1_i       ),
-        .s_sel2_i      	( s_sel2_i       ),
+    fcbrt_Residual_r4 u_fcbrt_Residual_r4(
+        .Residual_c_i 	( Residual_c_Reg ),
+        .Residual_s_i 	( Residual_s_Reg ),
+        .Sq_c_i       	( S_Square_c_Reg ),
+        .Sq_s_i       	( S_Square_s_Reg ),
+        .S_i          	( S_Reg          ),
+        .s_sel_i      	( s_sel_i       ),
         .cycle_cnt_i   	( cycle_cnt      ),
-        .Residual0_c_o 	( Residual0_c_o  ),
-        .Residual0_s_o 	( Residual0_s_o  ),
-        .Residual1_c_o 	( Residual1_c_o  ),
-        .Residual1_s_o 	( Residual1_s_o  ),
-        .Residual2_c_o 	( Residual2_c_o  ),
-        .Residual2_s_o 	( Residual2_s_o  )
+        .Residual_c_o 	( Residual_c_o  ),
+        .Residual_s_o 	( Residual_s_o  )
     );
 
     // 寄存器维护
@@ -527,13 +427,13 @@ module fcbrt_core(
             SM_Reg <= SM_o;
             // S_Square_Reg <= S_Square_Reg;
             // Residual_Reg <= Residual_Reg;
-            s_sel_Reg <= s_sel2_i;
-            S_Square_c_Reg_Prev <= Sq1_c_o;
-            S_Square_s_Reg_Prev <= Sq1_s_o;
-            S_Square_c_Reg <= Sq2_c_o;
-            S_Square_s_Reg <= Sq2_s_o;
-            Residual_c_Reg <= Residual2_c_o;
-            Residual_s_Reg <= Residual2_s_o;
+            s_sel_Reg <= s_sel_i;
+            S_Square_c_Reg_Prev <= S_Square_c_Reg;
+            S_Square_s_Reg_Prev <= S_Square_s_Reg;
+            S_Square_c_Reg <= Sq_c_o;
+            S_Square_s_Reg <= Sq_s_o;
+            Residual_c_Reg <= Residual_c_o;
+            Residual_s_Reg <= Residual_s_o;
         end else begin
             S_Reg <= S_Reg;
             SM_Reg <= SM_Reg;
