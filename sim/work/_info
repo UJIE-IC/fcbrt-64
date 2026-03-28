@@ -11,7 +11,7 @@ cModel Technology
 dG:/Paper/PWL_Cube_Root/ML_PLAC/ML_PLAC_v/tb
 Xcf_math_pkg
 Z0 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
-Z1 !s110 1774530130
+Z1 !s110 1774597152
 !i10b 1
 !s100 Af>Y4[O@IW:WjaOHYBV:O1
 IZakA<GZeRjV2h;OimeYOF1
@@ -20,14 +20,14 @@ Z2 dG:/FPU/r64_SRT_fcbrt/sim
 w1773380598
 8G:/FPU/r64_SRT_fcbrt/src/common_cells/cf_math_pkg.sv
 FG:/FPU/r64_SRT_fcbrt/src/common_cells/cf_math_pkg.sv
-!i122 159
+!i122 177
 L0 18 0
 VZakA<GZeRjV2h;OimeYOF1
 Z3 OV;L;2021.1;73
 r1
 !s85 0
 31
-Z4 !s108 1774530130.000000
+Z4 !s108 1774597152.000000
 !s107 G:/FPU/r64_SRT_fcbrt/src/common_cells/cf_math_pkg.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/common_cells/cf_math_pkg.sv|
 !i113 1
@@ -44,7 +44,7 @@ R2
 w1774100311
 8G:/FPU/r64_SRT_fcbrt/src/common_cells/CLA_15bit.sv
 FG:/FPU/r64_SRT_fcbrt/src/common_cells/CLA_15bit.sv
-!i122 160
+!i122 178
 L0 1 28
 Z7 VDg1SIo80bB@j0V0VzS_@n1
 R3
@@ -60,7 +60,7 @@ R6
 n@c@l@a_15bit
 vCSA4_2
 R0
-R1
+Z8 !s110 1774597153
 !i10b 1
 !s100 B=RBOPl<eR43?[eCAkeje2
 I9df9G7UCaohV4oR;MD^PS0
@@ -69,14 +69,14 @@ R2
 w1774100306
 8G:/FPU/r64_SRT_fcbrt/src/common_cells/CSA4_2.sv
 FG:/FPU/r64_SRT_fcbrt/src/common_cells/CSA4_2.sv
-!i122 161
-Z8 L0 1 22
+!i122 179
+Z9 L0 1 22
 R7
 R3
 r1
 !s85 0
 31
-R4
+Z10 !s108 1774597153.000000
 !s107 G:/FPU/r64_SRT_fcbrt/src/common_cells/CSA4_2.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/common_cells/CSA4_2.sv|
 !i113 1
@@ -85,52 +85,52 @@ R6
 n@c@s@a4_2
 vfcbrt_core
 R0
-Z9 DXx4 work 10 fcbrt_defs 0 22 WYOAE[NRTnhSB_G@NRaKG2
-DXx4 work 18 fcbrt_core_sv_unit 0 22 Wa`JDh[clD=_iKkm;Cicf0
-Z10 !s110 1774530124
+Z11 DXx4 work 10 fcbrt_defs 0 22 WYOAE[NRTnhSB_G@NRaKG2
+DXx4 work 18 fcbrt_core_sv_unit 0 22 MibE0KSkTWJDZV]4oflQB3
+R1
 R7
 r1
 !s85 0
 !i10b 1
-!s100 Q<zLF5NYmWShWXjNi50Z`0
-I;`JXA`[MEO[N[jWYYSaFn0
+!s100 RaX3n5=f_FQ8^e`OmTlbD1
+IRHU=mbia;<on>0>8j^?`b0
 !s105 fcbrt_core_sv_unit
 S1
 R2
-Z11 w1774529955
-Z12 8G:\FPU\r64_SRT_fcbrt\src\fcbrt_core.sv
-Z13 FG:\FPU\r64_SRT_fcbrt\src\fcbrt_core.sv
-!i122 152
-L0 3 518
+Z12 w1774597046
+Z13 8G:/FPU/r64_SRT_fcbrt/src/fcbrt_core.sv
+Z14 FG:/FPU/r64_SRT_fcbrt/src/fcbrt_core.sv
+!i122 170
+L0 3 544
 R3
 31
-Z14 !s108 1774530124.000000
-Z15 !s107 G:\FPU\r64_SRT_fcbrt\src\fcbrt_core.sv|
-Z16 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:\FPU\r64_SRT_fcbrt\src\fcbrt_core.sv|
+R4
+Z15 !s107 G:/FPU/r64_SRT_fcbrt/src/fcbrt_core.sv|
+Z16 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/fcbrt_core.sv|
 !i113 1
 R5
 R6
 Xfcbrt_core_sv_unit
 R0
-R9
-R10
-VWa`JDh[clD=_iKkm;Cicf0
+R11
+R1
+VMibE0KSkTWJDZV]4oflQB3
 r1
 !s85 0
 !i10b 1
-!s100 ;[0B_dZ=1]RhnP::z9YAK0
-IWa`JDh[clD=_iKkm;Cicf0
+!s100 eiam[BH3eYzJP:W:6eHR20
+IMibE0KSkTWJDZV]4oflQB3
 !i103 1
 S1
 R2
-R11
 R12
 R13
-!i122 152
+R14
+!i122 170
 Z17 L0 1 0
 R3
 31
-R14
+R4
 R15
 R16
 !i113 1
@@ -138,7 +138,7 @@ R5
 R6
 Xfcbrt_defs
 R0
-R10
+R1
 !i10b 1
 !s100 ]YRl<iKYFialZXARL3D^D1
 IWYOAE[NRTnhSB_G@NRaKG2
@@ -147,14 +147,14 @@ R2
 w1774280837
 8G:/FPU/r64_SRT_fcbrt/src/fcbrt_defs.sv
 FG:/FPU/r64_SRT_fcbrt/src/fcbrt_defs.sv
-!i122 153
+!i122 171
 R17
 VWYOAE[NRTnhSB_G@NRaKG2
 R3
 r1
 !s85 0
 31
-R14
+R4
 !s107 G:/FPU/r64_SRT_fcbrt/src/fcbrt_defs.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/fcbrt_defs.sv|
 !i113 1
@@ -162,7 +162,7 @@ R5
 R6
 vfcbrt_ML_PLAC
 R0
-R10
+R1
 !i10b 1
 !s100 m3zYE2gJ`;d?E<kZC^h0S0
 IbYgQQ<T;41fklYZ^zVko@3
@@ -171,14 +171,14 @@ R2
 w1773652591
 8G:/FPU/r64_SRT_fcbrt/src/fcbrt_ML_PLAC.sv
 FG:/FPU/r64_SRT_fcbrt/src/fcbrt_ML_PLAC.sv
-!i122 154
+!i122 172
 L0 1 130
 R7
 R3
 r1
 !s85 0
 31
-R14
+R4
 !s107 G:/FPU/r64_SRT_fcbrt/src/fcbrt_ML_PLAC.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/fcbrt_ML_PLAC.sv|
 !i113 1
@@ -187,9 +187,9 @@ R6
 nfcbrt_@m@l_@p@l@a@c
 vfcbrt_postprocess
 R0
-R9
+R11
 DXx4 work 25 fcbrt_postprocess_sv_unit 0 22 9Mg]0AFjXVAeWZdT`H]mV3
-Z18 !s110 1774530125
+R1
 R7
 r1
 !s85 0
@@ -199,23 +199,23 @@ IToZ^Q^3JK[jW9lLZ?0D5I3
 !s105 fcbrt_postprocess_sv_unit
 S1
 R2
-Z19 w1774279606
-Z20 8G:/FPU/r64_SRT_fcbrt/src/fcbrt_postprocess.sv
-Z21 FG:/FPU/r64_SRT_fcbrt/src/fcbrt_postprocess.sv
-!i122 155
+Z18 w1774279606
+Z19 8G:/FPU/r64_SRT_fcbrt/src/fcbrt_postprocess.sv
+Z20 FG:/FPU/r64_SRT_fcbrt/src/fcbrt_postprocess.sv
+!i122 173
 L0 3 77
 R3
 31
-R14
-Z22 !s107 G:/FPU/r64_SRT_fcbrt/src/fcbrt_postprocess.sv|
-Z23 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/fcbrt_postprocess.sv|
+R4
+Z21 !s107 G:/FPU/r64_SRT_fcbrt/src/fcbrt_postprocess.sv|
+Z22 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/fcbrt_postprocess.sv|
 !i113 1
 R5
 R6
 Xfcbrt_postprocess_sv_unit
 R0
-R9
-R18
+R11
+R1
 V9Mg]0AFjXVAeWZdT`H]mV3
 r1
 !s85 0
@@ -225,24 +225,24 @@ I9Mg]0AFjXVAeWZdT`H]mV3
 !i103 1
 S1
 R2
+R18
 R19
 R20
-R21
-!i122 155
+!i122 173
 R17
 R3
 31
-R14
+R4
+R21
 R22
-R23
 !i113 1
 R5
 R6
 vfcbrt_preprocess
 R0
-R9
+R11
 DXx4 work 24 fcbrt_preprocess_sv_unit 0 22 MQG:42W4_[clCo4:@oB[J2
-R18
+R1
 R7
 r1
 !s85 0
@@ -252,23 +252,23 @@ I`?F]E=G72d@WJM1eeX1ZP1
 !s105 fcbrt_preprocess_sv_unit
 S1
 R2
-Z24 w1774334554
-Z25 8G:/FPU/r64_SRT_fcbrt/src/fcbrt_preprocess.sv
-Z26 FG:/FPU/r64_SRT_fcbrt/src/fcbrt_preprocess.sv
-!i122 156
+Z23 w1774334554
+Z24 8G:/FPU/r64_SRT_fcbrt/src/fcbrt_preprocess.sv
+Z25 FG:/FPU/r64_SRT_fcbrt/src/fcbrt_preprocess.sv
+!i122 174
 L0 3 307
 R3
 31
-Z27 !s108 1774530125.000000
-Z28 !s107 G:/FPU/r64_SRT_fcbrt/src/fcbrt_preprocess.sv|
-Z29 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/fcbrt_preprocess.sv|
+R4
+Z26 !s107 G:/FPU/r64_SRT_fcbrt/src/fcbrt_preprocess.sv|
+Z27 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/fcbrt_preprocess.sv|
 !i113 1
 R5
 R6
 Xfcbrt_preprocess_sv_unit
 R0
-R9
-R18
+R11
+R1
 VMQG:42W4_[clCo4:@oB[J2
 r1
 !s85 0
@@ -278,55 +278,55 @@ IMQG:42W4_[clCo4:@oB[J2
 !i103 1
 S1
 R2
+R23
 R24
 R25
-R26
-!i122 156
+!i122 174
 R17
 R3
 31
+R4
+R26
 R27
-R28
-R29
 !i113 1
 R5
 R6
 vfcbrt_Residual_r4
 R0
-!s110 1774530382
+R8
 !i10b 1
 !s100 Glb5fH[e<c83=UAnJolI`2
-I;HUek[1RdzlmZPOo;P;b:0
+IbQLSTaf`Sab?TFE><e<Lf2
 S1
 R2
 w1774530355
-8G:\FPU\r64_SRT_fcbrt\src\fcbrt_Residual_r4.sv
-FG:\FPU\r64_SRT_fcbrt\src\fcbrt_Residual_r4.sv
-!i122 168
+Z28 8G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r4.sv
+Z29 FG:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r4.sv
+!i122 183
 Z30 L0 1 1100
 R7
 R3
 r1
 !s85 0
 31
-!s108 1774530382.000000
-!s107 G:\FPU\r64_SRT_fcbrt\src\fcbrt_Residual_r4.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|G:\FPU\r64_SRT_fcbrt\src\fcbrt_Residual_r4.sv|
+R10
+Z31 !s107 G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r4.sv|
+Z32 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r4.sv|
 !i113 1
 R5
 R6
 nfcbrt_@residual_r4
 vfcbrt_Residual_r64
 R0
-Z31 !s110 1774530131
+!s110 1774530131
 !i10b 1
 !s100 2PbdGNPB7jHBM4UY;zoF62
 I?g<C90g:[Fh8:Sz6NmV4O1
 S1
 R2
 w1774528850
-8G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r4.sv
-FG:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r4.sv
+R28
+R29
 !i122 165
 R30
 R7
@@ -334,16 +334,16 @@ R3
 r1
 !s85 0
 31
-Z32 !s108 1774530131.000000
-!s107 G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r4.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r4.sv|
+!s108 1774530131.000000
+R31
+R32
 !i113 1
 R5
 R6
 nfcbrt_@residual_r64
 vfcbrt_S_SM_r4
 R0
-R31
+R8
 !i10b 1
 !s100 Q?HgkE7Fe=gIQEN4[WaC>1
 I17:bH2L`<igP?[BTiV2?H0
@@ -352,14 +352,14 @@ R2
 w1774526777
 8G:/FPU/r64_SRT_fcbrt/src/fcbrt_S_SM_r4.sv
 FG:/FPU/r64_SRT_fcbrt/src/fcbrt_S_SM_r4.sv
-!i122 166
+!i122 184
 L0 1 293
 R7
 R3
 r1
 !s85 0
 31
-R32
+R10
 !s107 G:/FPU/r64_SRT_fcbrt/src/fcbrt_S_SM_r4.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/fcbrt_S_SM_r4.sv|
 !i113 1
@@ -418,7 +418,7 @@ R6
 nfcbrt_@sq_r64
 vfcbrt_Ssel
 R0
-!s110 1774530128
+R1
 !i10b 1
 !s100 8i@SAnAYnZNVQfSm[aJVR1
 IQSdJ6GDX[JDG:^fJF;k]<1
@@ -427,14 +427,14 @@ R2
 w1774100298
 8G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssel.sv
 FG:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssel.sv
-!i122 157
+!i122 175
 L0 1 88
 R7
 R3
 r1
 !s85 0
 31
-!s108 1774530128.000000
+R4
 !s107 G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssel.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssel.sv|
 !i113 1
@@ -443,7 +443,7 @@ R6
 nfcbrt_@ssel
 vfcbrt_Ssquare_r4
 R0
-R31
+R8
 !i10b 1
 !s100 UNfZbVZboX0h?n44KnQ:B0
 I78mb>]bNl>Y0i54c<;7QX3
@@ -452,14 +452,14 @@ R2
 w1774528133
 8G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssquare_r4.sv
 FG:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssquare_r4.sv
-!i122 167
+!i122 185
 L0 1 884
 R7
 R3
 r1
 !s85 0
 31
-R32
+R10
 !s107 G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssquare_r4.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssquare_r4.sv|
 !i113 1
@@ -468,7 +468,7 @@ R6
 nfcbrt_@ssquare_r4
 vfcbrt_top
 R0
-R9
+R11
 DXx4 work 17 fcbrt_top_sv_unit 0 22 HX]hU909l[2P@LS>9j5gU2
 R1
 R7
@@ -483,7 +483,7 @@ R2
 Z34 w1774327862
 Z35 8G:/FPU/r64_SRT_fcbrt/src/fcbrt_top.sv
 Z36 FG:/FPU/r64_SRT_fcbrt/src/fcbrt_top.sv
-!i122 158
+!i122 176
 L0 3 102
 R3
 31
@@ -495,7 +495,7 @@ R5
 R6
 Xfcbrt_top_sv_unit
 R0
-R9
+R11
 R1
 VHX]hU909l[2P@LS>9j5gU2
 r1
@@ -509,7 +509,7 @@ R2
 R34
 R35
 R36
-!i122 158
+!i122 176
 R17
 R3
 31
@@ -521,7 +521,7 @@ R5
 R6
 vfcbrt_udiv3
 R0
-R31
+R8
 !i10b 1
 !s100 VVI:aQ]Q8<MK>VmKead]`2
 I]X6^[6P;N_zU>3ao;XET32
@@ -530,14 +530,14 @@ R2
 w1774273420
 8G:/FPU/r64_SRT_fcbrt/src/common_cells/fcbrt_udiv3.sv
 FG:/FPU/r64_SRT_fcbrt/src/common_cells/fcbrt_udiv3.sv
-!i122 162
-R8
+!i122 180
+R9
 R7
 R3
 r1
 !s85 0
 31
-R32
+R10
 !s107 G:/FPU/r64_SRT_fcbrt/src/common_cells/fcbrt_udiv3.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/common_cells/fcbrt_udiv3.sv|
 !i113 1
@@ -546,7 +546,7 @@ R6
 vlzc
 R0
 DXx4 work 11 cf_math_pkg 0 22 ZakA<GZeRjV2h;OimeYOF1
-R31
+R8
 !i10b 1
 !s100 O;Da3baJ03V4KNYjH6OSR0
 I^YLV[FT`29K3>ae;f]BQX0
@@ -555,14 +555,14 @@ R2
 w1773887198
 8G:/FPU/r64_SRT_fcbrt/src/common_cells/lzc.sv
 FG:/FPU/r64_SRT_fcbrt/src/common_cells/lzc.sv
-!i122 163
+!i122 181
 L0 17 91
 R7
 R3
 r1
 !s85 0
 31
-R32
+R10
 !s107 G:/FPU/r64_SRT_fcbrt/src/common_cells/assertions.svh|G:/FPU/r64_SRT_fcbrt/src/common_cells/lzc.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/src/common_cells/lzc.sv|
 !i113 1
@@ -597,9 +597,9 @@ R5
 R6
 vtb_fcbrt_top_dump
 R0
-R9
+R11
 DXx4 work 25 tb_fcbrt_top_dump_sv_unit 0 22 G;d<`[jjD7kFMjB8;e49^1
-R31
+R8
 R7
 r1
 !s85 0
@@ -612,11 +612,11 @@ R2
 Z47 w1774443359
 Z48 8G:/FPU/r64_SRT_fcbrt/tb/tb_fcbrt_top_dump.sv
 Z49 FG:/FPU/r64_SRT_fcbrt/tb/tb_fcbrt_top_dump.sv
-!i122 164
+!i122 182
 L0 4 117
 R3
 31
-R32
+R10
 Z50 !s107 G:/FPU/r64_SRT_fcbrt/tb/tb_fcbrt_top_dump.sv|
 Z51 !s90 -reportprogress|300|-work|work|-sv|-stats=none|G:/FPU/r64_SRT_fcbrt/tb/tb_fcbrt_top_dump.sv|
 !i113 1
@@ -624,8 +624,8 @@ R5
 R6
 Xtb_fcbrt_top_dump_sv_unit
 R0
-R9
-R31
+R11
+R8
 VG;d<`[jjD7kFMjB8;e49^1
 r1
 !s85 0
@@ -638,11 +638,11 @@ R2
 R47
 R48
 R49
-!i122 164
+!i122 182
 L0 2 0
 R3
 31
-R32
+R10
 R50
 R51
 !i113 1

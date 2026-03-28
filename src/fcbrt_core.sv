@@ -397,7 +397,7 @@ module fcbrt_core(
         .Residual_s_o 	( Residual_s_o  )
     );
 
-    // 寄存器维护
+    // 寄存器
     always_ff @(posedge clk_i or negedge rst_ni) begin
         if (~rst_ni) begin
             S_Reg <= '0;
@@ -499,6 +499,7 @@ module fcbrt_core(
     // 后处理的开始信号
     logic start_N;
     logic start_P;
+    logic start_dly;
 
     assign start_N = ((cycle_cnt == Final_cycle)&&Fsm_enable)?1'b1:1'b0;
 
@@ -510,11 +511,36 @@ module fcbrt_core(
         end
     end
 
+    // 打一拍送出
+    always_ff @(posedge clk_i or negedge rst_ni) begin
+        if (~rst_ni) begin
+            start_dly <= '0;
+        end else begin
+            start_dly <= start_P;
+        end
+    end
+
+    logic [C_MANT_FP64+4:0] mant_o_Reg;   
+    logic sticky_Reg;
+
+    always_ff @(posedge clk_i or negedge rst_ni) begin
+        if (~rst_ni) begin
+            mant_o_Reg <= '0;
+            sticky_Reg <= '0;
+        end else if (start_P) begin
+            mant_o_Reg <= (Residual_fix[2*(C_MANT_FP64+4)+4])?SM_Reg:S_Reg;
+            sticky_Reg <= sticky;
+        end else begin
+            mant_o_Reg <= mant_o_Reg;
+            sticky_Reg <= sticky_Reg;
+        end
+    end
+
     // 输出信号
-    assign start_o = start_P;
+    assign start_o = start_dly;
     assign special_case_o = special_case_i;
-    assign sticky_o = sticky;
-    assign mant_o = (Residual_fix[2*(C_MANT_FP64+4)+4])?SM_Reg:S_Reg;
+    assign sticky_o = sticky_Reg;
+    assign mant_o = mant_o_Reg;
     assign exp_bias_o = exp_bias_nonc_reg;
 
 endmodule
