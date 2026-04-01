@@ -1,8 +1,8 @@
 module fcbrt_Residual_r4 (
     input  logic [116:0] Residual_c_i,
     input  logic [116:0] Residual_s_i,
-    input  logic [112:0] Sq_c_i,
-    input  logic [112:0] Sq_s_i,
+    input  logic [116:0] Sq_c_i,
+    input  logic [116:0] Sq_s_i,
     input  logic [56:0] S_i,
     input  logic signed [2:0] s_sel_i,
     input  logic [4:0] cycle_cnt_i,
@@ -25,16 +25,16 @@ module fcbrt_Residual_r4 (
     always_comb begin
         case(s_sel_i)
             3'sd2: begin
-                Residual_A0_sel = ~{2'b00, Sq_c_i, 2'b00};
-                Residual_A1_sel = ~{3'b000, Sq_c_i, 1'b0};
-                Residual_A2_sel = ~{2'b00, Sq_s_i, 2'b00};
-                Residual_A3_sel = ~{3'b000, Sq_s_i, 1'b0};
+                Residual_A0_sel = ~(Sq_c_i << 2);
+                Residual_A1_sel = ~(Sq_c_i << 1);
+                Residual_A2_sel = ~(Sq_s_i << 2);
+                Residual_A3_sel = ~(Sq_s_i << 1);
             end
             3'sd1: begin
-                Residual_A0_sel = ~{3'b000, Sq_c_i, 1'b0};
-                Residual_A1_sel = ~{4'b0000, Sq_c_i};
-                Residual_A2_sel = ~{3'b000, Sq_s_i, 1'b0};
-                Residual_A3_sel = ~{4'b0000, Sq_s_i};
+                Residual_A0_sel = ~(Sq_c_i << 1);
+                Residual_A1_sel = ~Sq_c_i;
+                Residual_A2_sel = ~(Sq_s_i << 1);
+                Residual_A3_sel = ~Sq_s_i;
             end
             3'sd0: begin
                 Residual_A0_sel = '0;
@@ -43,16 +43,16 @@ module fcbrt_Residual_r4 (
                 Residual_A3_sel = '0;
             end
             -3'sd1: begin
-                Residual_A0_sel = {3'b000, Sq_c_i, 1'b0};
-                Residual_A1_sel = {4'b0000, Sq_c_i};
-                Residual_A2_sel = {3'b000, Sq_s_i, 1'b0};
-                Residual_A3_sel = {4'b0000, Sq_s_i};
+                Residual_A0_sel = (Sq_c_i << 1);
+                Residual_A1_sel = Sq_c_i;
+                Residual_A2_sel = (Sq_s_i << 1);
+                Residual_A3_sel = Sq_s_i;
             end
             -3'sd2: begin
-                Residual_A0_sel = {2'b00, Sq_c_i, 2'b00};
-                Residual_A1_sel = {3'b000, Sq_c_i, 1'b0};
-                Residual_A2_sel = {2'b00, Sq_s_i, 2'b00};
-                Residual_A3_sel = {3'b000, Sq_s_i, 1'b0};
+                Residual_A0_sel = (Sq_c_i << 2);
+                Residual_A1_sel = (Sq_c_i << 1);
+                Residual_A2_sel = (Sq_s_i << 2);
+                Residual_A3_sel = (Sq_s_i << 1);
             end
             default: begin
                 Residual_A0_sel = '0;

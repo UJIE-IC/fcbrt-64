@@ -1,5 +1,5 @@
 # Compile of fcbrt_defs.sv was successful.
-# Compile of fcbrt_core.sv was successful with warnings.
+# Compile of fcbrt_core.sv was successful.
 # Compile of fcbrt_defs.sv was successful.
 # Compile of fcbrt_ML_PLAC.sv was successful.
 # Compile of fcbrt_postprocess.sv was successful.
@@ -13,13 +13,13 @@
 # Compile of fcbrt_udiv3.sv was successful.
 # Compile of lzc.sv was successful with warnings.
 # Compile of tb_fcbrt_top_dump.sv was successful.
-# Compile of fcbrt_Residual_r4.sv was successful.
 # Compile of fcbrt_S_SM_r4.sv was successful.
+# 15 compiles, 2 failed with no errors.
 # Compile of fcbrt_Ssquare_r4.sv was successful.
-# 17 compiles, 0 failed with no errors.
+# Compile of fcbrt_Residual_r4.sv was successful.
 vsim -gui work.tb_fcbrt_top_dump
 # vsim -gui work.tb_fcbrt_top_dump 
-# Start time: 15:39:29 on Mar 27,2026
+# Start time: 19:46:25 on Apr 01,2026
 # Loading sv_std.std
 # Loading work.fcbrt_defs
 # Loading work.tb_fcbrt_top_dump_sv_unit
@@ -21703,9 +21703,13 @@ run -all
 #    Time: 6495145 ns  Iteration: 1  Instance: /tb_fcbrt_top_dump
 # 1
 # Break in Module tb_fcbrt_top_dump at G:/FPU/r64_SRT_fcbrt/tb/tb_fcbrt_top_dump.sv line 117
-# ** Error: ¾¾·Î¡ Ù«Er 
+# ** Error: ¾¾·Î¡ ˆº,  ´£
 #        Unable to replace existing ini file (G:/FPU/r64_SRT_fcbrt/sim/fcbrt_tb.mpf).  File can not be renamed.
-# ** Error: ¾¾·Î¡ Ù‰g  ,èE
+# ** Error: ¾¾·Î¡
 #        Unable to replace existing ini file (G:/FPU/r64_SRT_fcbrt/sim/fcbrt_tb.mpf).  File can not be renamed.
-# End time: 15:41:27 on Mar 27,2026, Elapsed time: 0:01:58
-# Errors: 2, Warnings: 4
+# ** Error: ¾¾·Î¡ ˆ°*  
+#        Unable to replace existing ini file (G:/FPU/r64_SRT_fcbrt/sim/fcbrt_tb.mpf).  File can not be renamed.
+# ** Error: ¾¾·Î¡
+#        Unable to replace existing ini file (G:/FPU/r64_SRT_fcbrt/sim/fcbrt_tb.mpf).  File can not be renamed.
+# End time: 19:48:10 on Apr 01,2026, Elapsed time: 0:01:45
+# Errors: 4, Warnings: 10

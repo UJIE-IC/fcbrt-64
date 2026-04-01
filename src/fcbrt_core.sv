@@ -202,8 +202,8 @@ module fcbrt_core(
     assign SM = {(mant_init_o - {{(C_INIT_OW-1){1'b0}}, 1'b1}), {(C_MANT_FP64+5-C_INIT_OW){1'b0}}};
 
     // S_Square Init
-    logic [2*(C_MANT_FP64+4):0] S_Square; // U1.112
-    assign S_Square = {init_sq_o, {(2*(C_MANT_FP64+4)-2*(C_INIT_OW-1)){1'b0}}};
+    logic [2*(C_MANT_FP64+4)+4:0] S_Square; // U1.112 更改
+    assign S_Square = {4'b0000, init_sq_o, {(2*(C_MANT_FP64+4)-2*(C_INIT_OW-1)){1'b0}}};
 
     // Residual Init
     logic [2*(C_MANT_FP64+4)+4:0] Residual; // Q5.112 
@@ -215,7 +215,7 @@ module fcbrt_core(
     
     logic [C_MANT_FP64+4:0] S_init_N;  // U1.56
     logic [C_MANT_FP64+4:0] SM_init_N; // U1.56
-    logic [2*(C_MANT_FP64+4):0] S_Square_init_N; // U1.112
+    logic [2*(C_MANT_FP64+4)+4:0] S_Square_init_N; // U1.112 更改
     logic [2*(C_MANT_FP64+4)+4:0] Residual_init_N; // Q5.112
 
     logic [C_MANT_FP64+4:0] S_Reg;  // U1.56
@@ -280,14 +280,13 @@ module fcbrt_core(
         end
     end
 
-
     // S/SM Ssquare Residual r4 path 
 
     logic [C_MANT_FP64+4:0] S_o; 
     logic [C_MANT_FP64+4:0] SM_o;
 
-    logic [2*(C_MANT_FP64+4):0] Sq_c_o;
-    logic [2*(C_MANT_FP64+4):0] Sq_s_o;
+    logic [2*(C_MANT_FP64+4)+4:0] Sq_c_o;
+    logic [2*(C_MANT_FP64+4)+4:0] Sq_s_o;
 
     logic [2*(C_MANT_FP64+4)+4:0] Residual_c_o;
     logic [2*(C_MANT_FP64+4)+4:0] Residual_s_o;
@@ -296,18 +295,10 @@ module fcbrt_core(
 
     logic [6:0] SH_i; 
 
-    logic signed [8:0] ResidualH_i;
     logic signed [8:0] ResidualH;
 
-    logic [2*(C_MANT_FP64+4):0] S_Square_c_Reg_Prev; // 前一个S_Square 用于检测是否需要对ResiualH作修正处理
-    logic [2*(C_MANT_FP64+4):0] S_Square_s_Reg_Prev;
-    logic signed [2:0] s_sel_Reg; //上一个r4迭代的选择
-
-    logic [2*(C_MANT_FP64+4)+1:0] S_Square_Prev;
-    logic Sq_Prev_Carry;
-
-    logic [2*(C_MANT_FP64+4):0] S_Square_c_Reg; // r64迭代后的Sq冗余表示
-    logic [2*(C_MANT_FP64+4):0] S_Square_s_Reg;
+    logic [2*(C_MANT_FP64+4)+4:0] S_Square_c_Reg; // r64迭代后的Sq冗余表示
+    logic [2*(C_MANT_FP64+4)+4:0] S_Square_s_Reg;
     logic [2*(C_MANT_FP64+4)+4:0] Residual_c_Reg; // r64迭代后的residual冗余表示
     logic [2*(C_MANT_FP64+4)+4:0] Residual_s_Reg;
 
@@ -315,56 +306,30 @@ module fcbrt_core(
 
     assign ResidualH = Residual_c_Reg[2*(C_MANT_FP64+4)+4-:9] + Residual_s_Reg[2*(C_MANT_FP64+4)+4-:9];
 
-    // 对ResidualH作修正
-    // stage0
-    assign S_Square_Prev = {1'b0, S_Square_s_Reg_Prev} + {1'b0, S_Square_c_Reg_Prev};
-    assign Sq_Prev_Carry = S_Square_Prev[2*(C_MANT_FP64+4)+1];
-
-    always_comb begin
-        if (Sq_Prev_Carry) begin
-            case(s_sel_Reg)
-                3'sd2: ResidualH_i = ResidualH + 9'b100000000;
-                3'sd1: ResidualH_i = ResidualH + 9'b110000000;
-                3'sd0: ResidualH_i = ResidualH;
-                -3'sd1: ResidualH_i = ResidualH - 9'b110000000;
-                -3'sd2: ResidualH_i = ResidualH - 9'b100000000;
-                default: ResidualH_i = ResidualH;
-            endcase
-        end else begin
-            ResidualH_i = ResidualH;
-        end
-    end
-
     // sticky
     logic sticky;
-    logic [2*(C_MANT_FP64+4)+4:0] Residual_corr;
     logic signed [2*(C_MANT_FP64+4)+4:0] Residual_fix;
+    logic signed [2*(C_MANT_FP64+4)+4:0] Residual_fix_Reg;
 
-    always_comb begin
-        if (Sq_Prev_Carry) begin
-            case (s_sel_Reg)
-                3'sd2: Residual_corr = {5'b10000, {2*(C_MANT_FP64+4){1'b0}}}; 
-                3'sd1: Residual_corr = {5'b11000, {2*(C_MANT_FP64+4){1'b0}}}; 
-                3'sd0: Residual_corr = '0;
-                -3'sd1: Residual_corr = {5'b01000, {2*(C_MANT_FP64+4){1'b0}}};
-                -3'sd2: Residual_corr = {5'b10000, {2*(C_MANT_FP64+4){1'b0}}}; 
-                default: Residual_corr = '0;
-            endcase 
+    assign Residual_fix = Residual_c_Reg + Residual_s_Reg;
+
+    // 关键路径打拍
+    always_ff @(posedge clk_i or negedge rst_ni) begin
+        if (~rst_ni) begin
+            Residual_fix_Reg <= '0;
         end else begin
-            Residual_corr = '0;
+            Residual_fix_Reg <= Residual_fix;
         end
     end
 
-    assign Residual_fix = Residual_c_Reg + Residual_s_Reg + Residual_corr;
-    assign sticky = (Residual_fix != '0);
+    assign sticky = (Residual_fix_Reg != '0);
 
     // S Select
     fcbrt_Ssel u_fcbrt_Ssel(
-        .ResidualH_i 	( ResidualH_i  ),
+        .ResidualH_i 	( ResidualH  ),
         .SH_i        	( SH_i         ),
         .S_sel_o     	( s_sel_i      )
     );
-
 
     fcbrt_S_SM_r4 u_fcbrt_S_SM_r4(
         .S_i        	( S_Reg        ),
@@ -404,8 +369,6 @@ module fcbrt_core(
             SM_Reg <= '0;
             // S_Square_Reg <= '0;
             // Residual_Reg <= '0;
-            S_Square_c_Reg_Prev <= '0;
-            S_Square_s_Reg_Prev <= '0;
             S_Square_c_Reg <= '0;
             S_Square_s_Reg <= '0;
             Residual_c_Reg <= '0;
@@ -415,9 +378,6 @@ module fcbrt_core(
             SM_Reg <= SM_init_N;
             // S_Square_Reg <= S_Square_init_N;
             // Residual_Reg <= Residual_init_N;
-            s_sel_Reg <= '0;
-            S_Square_c_Reg_Prev <= '0;
-            S_Square_s_Reg_Prev <= '0;
             S_Square_c_Reg <= '0;
             S_Square_s_Reg <= S_Square_init_N;
             Residual_c_Reg <= '0;
@@ -427,9 +387,6 @@ module fcbrt_core(
             SM_Reg <= SM_o;
             // S_Square_Reg <= S_Square_Reg;
             // Residual_Reg <= Residual_Reg;
-            s_sel_Reg <= s_sel_i;
-            S_Square_c_Reg_Prev <= S_Square_c_Reg;
-            S_Square_s_Reg_Prev <= S_Square_s_Reg;
             S_Square_c_Reg <= Sq_c_o;
             S_Square_s_Reg <= Sq_s_o;
             Residual_c_Reg <= Residual_c_o;
@@ -439,9 +396,6 @@ module fcbrt_core(
             SM_Reg <= SM_Reg;
             // S_Square_Reg <= S_Square_Reg;
             // Residual_Reg <= Residual_Reg;
-            s_sel_Reg <= s_sel_Reg;
-            S_Square_c_Reg_Prev <= S_Square_c_Reg_Prev;
-            S_Square_s_Reg_Prev <= S_Square_s_Reg_Prev;
             S_Square_c_Reg <= S_Square_c_Reg;
             S_Square_s_Reg <= S_Square_s_Reg;
             Residual_c_Reg <= Residual_c_Reg;
@@ -506,41 +460,18 @@ module fcbrt_core(
     always_ff @(posedge clk_i or negedge rst_ni) begin
         if (~rst_ni) begin
             start_P <= 1'b0;
+            start_dly <= 1'b0;
         end else begin
             start_P <= start_N;
-        end
-    end
-
-    // 打一拍送出
-    always_ff @(posedge clk_i or negedge rst_ni) begin
-        if (~rst_ni) begin
-            start_dly <= '0;
-        end else begin
             start_dly <= start_P;
-        end
-    end
-
-    logic [C_MANT_FP64+4:0] mant_o_Reg;   
-    logic sticky_Reg;
-
-    always_ff @(posedge clk_i or negedge rst_ni) begin
-        if (~rst_ni) begin
-            mant_o_Reg <= '0;
-            sticky_Reg <= '0;
-        end else if (start_P) begin
-            mant_o_Reg <= (Residual_fix[2*(C_MANT_FP64+4)+4])?SM_Reg:S_Reg;
-            sticky_Reg <= sticky;
-        end else begin
-            mant_o_Reg <= mant_o_Reg;
-            sticky_Reg <= sticky_Reg;
         end
     end
 
     // 输出信号
     assign start_o = start_dly;
     assign special_case_o = special_case_i;
-    assign sticky_o = sticky_Reg;
-    assign mant_o = mant_o_Reg;
+    assign sticky_o = sticky;
+    assign mant_o = (Residual_fix_Reg[2*(C_MANT_FP64+4)+4])?SM_Reg:S_Reg;
     assign exp_bias_o = exp_bias_nonc_reg;
 
 endmodule
