@@ -1,12 +1,12 @@
 module fcbrt_Residual_r64 (
     input  logic [116:0] Residual0_c_i,
     input  logic [116:0] Residual0_s_i,
-    input  logic [112:0] Sq0_c_i,
-    input  logic [112:0] Sq0_s_i,
-    input  logic [112:0] Sq1_c_i,
-    input  logic [112:0] Sq1_s_i,
-    input  logic [112:0] Sq2_c_i,
-    input  logic [112:0] Sq2_s_i,
+    input  logic [116:0] Sq0_c_i,
+    input  logic [116:0] Sq0_s_i,
+    input  logic [116:0] Sq1_c_i,
+    input  logic [116:0] Sq1_s_i,
+    input  logic [116:0] Sq2_c_i,
+    input  logic [116:0] Sq2_s_i,
     input  logic [56:0] S0_i,
     input  logic [56:0] S1_i,
     input  logic [56:0] S2_i,
@@ -39,16 +39,16 @@ module fcbrt_Residual_r64 (
     always_comb begin
         case(s_sel0_i)
             3'sd2: begin
-                Residual0_A0_sel = ~{2'b00, Sq0_c_i, 2'b00};
-                Residual0_A1_sel = ~{3'b000, Sq0_c_i, 1'b0};
-                Residual0_A2_sel = ~{2'b00, Sq0_s_i, 2'b00};
-                Residual0_A3_sel = ~{3'b000, Sq0_s_i, 1'b0};
+                Residual0_A0_sel = ~(Sq0_c_i << 2);
+                Residual0_A1_sel = ~(Sq0_c_i << 1);
+                Residual0_A2_sel = ~(Sq0_s_i << 2);
+                Residual0_A3_sel = ~(Sq0_s_i << 1);
             end
             3'sd1: begin
-                Residual0_A0_sel = ~{3'b000, Sq0_c_i, 1'b0};
-                Residual0_A1_sel = ~{4'b0000, Sq0_c_i};
-                Residual0_A2_sel = ~{3'b000, Sq0_s_i, 1'b0};
-                Residual0_A3_sel = ~{4'b0000, Sq0_s_i};
+                Residual0_A0_sel = ~(Sq0_c_i << 1);
+                Residual0_A1_sel = ~Sq0_c_i;
+                Residual0_A2_sel = ~(Sq0_s_i << 1);
+                Residual0_A3_sel = ~Sq0_s_i;
             end
             3'sd0: begin
                 Residual0_A0_sel = '0;
@@ -57,16 +57,16 @@ module fcbrt_Residual_r64 (
                 Residual0_A3_sel = '0;
             end
             -3'sd1: begin
-                Residual0_A0_sel = {3'b000, Sq0_c_i, 1'b0};
-                Residual0_A1_sel = {4'b0000, Sq0_c_i};
-                Residual0_A2_sel = {3'b000, Sq0_s_i, 1'b0};
-                Residual0_A3_sel = {4'b0000, Sq0_s_i};
+                Residual0_A0_sel = (Sq0_c_i << 1);
+                Residual0_A1_sel = Sq0_c_i;
+                Residual0_A2_sel = (Sq0_s_i << 1);
+                Residual0_A3_sel = Sq0_s_i;
             end
             -3'sd2: begin
-                Residual0_A0_sel = {2'b00, Sq0_c_i, 2'b00};
-                Residual0_A1_sel = {3'b000, Sq0_c_i, 1'b0};
-                Residual0_A2_sel = {2'b00, Sq0_s_i, 2'b00};
-                Residual0_A3_sel = {3'b000, Sq0_s_i, 1'b0};
+                Residual0_A0_sel = (Sq0_c_i << 2);
+                Residual0_A1_sel = (Sq0_c_i << 1);
+                Residual0_A2_sel = (Sq0_s_i << 2);
+                Residual0_A3_sel = (Sq0_s_i << 1);
             end
             default: begin
                 Residual0_A0_sel = '0;
@@ -456,16 +456,16 @@ module fcbrt_Residual_r64 (
     always_comb begin
         case(s_sel1_i)
             3'sd2: begin
-                Residual1_A0_sel = ~{2'b00, Sq1_c_i, 2'b00};
-                Residual1_A1_sel = ~{3'b000, Sq1_c_i, 1'b0};
-                Residual1_A2_sel = ~{2'b00, Sq1_s_i, 2'b00};
-                Residual1_A3_sel = ~{3'b000, Sq1_s_i, 1'b0};
+                Residual1_A0_sel = ~(Sq1_c_i << 2);
+                Residual1_A1_sel = ~(Sq1_c_i << 1);
+                Residual1_A2_sel = ~(Sq1_s_i << 2);
+                Residual1_A3_sel = ~(Sq1_s_i << 1);
             end
             3'sd1: begin
-                Residual1_A0_sel = ~{3'b000, Sq1_c_i, 1'b0};
-                Residual1_A1_sel = ~{4'b0000, Sq1_c_i};
-                Residual1_A2_sel = ~{3'b000, Sq1_s_i, 1'b0};
-                Residual1_A3_sel = ~{4'b0000, Sq1_s_i};
+                Residual1_A0_sel = ~(Sq1_c_i << 1);
+                Residual1_A1_sel = ~Sq1_c_i;
+                Residual1_A2_sel = ~(Sq1_s_i << 1);
+                Residual1_A3_sel = ~Sq1_s_i;
             end
             3'sd0: begin
                 Residual1_A0_sel = '0;
@@ -474,16 +474,16 @@ module fcbrt_Residual_r64 (
                 Residual1_A3_sel = '0;
             end
             -3'sd1: begin
-                Residual1_A0_sel = {3'b000, Sq1_c_i, 1'b0};
-                Residual1_A1_sel = {4'b0000, Sq1_c_i};
-                Residual1_A2_sel = {3'b000, Sq1_s_i, 1'b0};
-                Residual1_A3_sel = {4'b0000, Sq1_s_i};
+                Residual1_A0_sel = (Sq1_c_i << 1);
+                Residual1_A1_sel = Sq1_c_i;
+                Residual1_A2_sel = (Sq1_s_i << 1);
+                Residual1_A3_sel = Sq1_s_i;
             end
             -3'sd2: begin
-                Residual1_A0_sel = {2'b00, Sq1_c_i, 2'b00};
-                Residual1_A1_sel = {3'b000, Sq1_c_i, 1'b0};
-                Residual1_A2_sel = {2'b00, Sq1_s_i, 2'b00};
-                Residual1_A3_sel = {3'b000, Sq1_s_i, 1'b0};
+                Residual1_A0_sel = (Sq1_c_i << 2);
+                Residual1_A1_sel = (Sq1_c_i << 1);
+                Residual1_A2_sel = (Sq1_s_i << 2);
+                Residual1_A3_sel = (Sq1_s_i << 1);
             end
             default: begin
                 Residual1_A0_sel = '0;
@@ -874,16 +874,16 @@ module fcbrt_Residual_r64 (
     always_comb begin
         case(s_sel2_i)
             3'sd2: begin
-                Residual2_A0_sel = ~{2'b00, Sq2_c_i, 2'b00};
-                Residual2_A1_sel = ~{3'b000, Sq2_c_i, 1'b0};
-                Residual2_A2_sel = ~{2'b00, Sq2_s_i, 2'b00};
-                Residual2_A3_sel = ~{3'b000, Sq2_s_i, 1'b0};
+                Residual2_A0_sel = ~(Sq2_c_i << 2);
+                Residual2_A1_sel = ~(Sq2_c_i << 1);
+                Residual2_A2_sel = ~(Sq2_s_i << 2);
+                Residual2_A3_sel = ~(Sq2_s_i << 1);
             end
             3'sd1: begin
-                Residual2_A0_sel = ~{3'b000, Sq2_c_i, 1'b0};
-                Residual2_A1_sel = ~{4'b0000, Sq2_c_i};
-                Residual2_A2_sel = ~{3'b000, Sq2_s_i, 1'b0};
-                Residual2_A3_sel = ~{4'b0000, Sq2_s_i};
+                Residual2_A0_sel = ~(Sq2_c_i << 1);
+                Residual2_A1_sel = ~Sq2_c_i;
+                Residual2_A2_sel = ~(Sq2_s_i << 1);
+                Residual2_A3_sel = ~Sq2_s_i;
             end
             3'sd0: begin
                 Residual2_A0_sel = '0;
@@ -892,16 +892,16 @@ module fcbrt_Residual_r64 (
                 Residual2_A3_sel = '0;
             end
             -3'sd1: begin
-                Residual2_A0_sel = {3'b000, Sq2_c_i, 1'b0};
-                Residual2_A1_sel = {4'b0000, Sq2_c_i};
-                Residual2_A2_sel = {3'b000, Sq2_s_i, 1'b0};
-                Residual2_A3_sel = {4'b0000, Sq2_s_i};
+                Residual2_A0_sel = (Sq2_c_i << 1);
+                Residual2_A1_sel = Sq2_c_i;
+                Residual2_A2_sel = (Sq2_s_i << 1);
+                Residual2_A3_sel = Sq2_s_i;
             end
             -3'sd2: begin
-                Residual2_A0_sel = {2'b00, Sq2_c_i, 2'b00};
-                Residual2_A1_sel = {3'b000, Sq2_c_i, 1'b0};
-                Residual2_A2_sel = {2'b00, Sq2_s_i, 2'b00};
-                Residual2_A3_sel = {3'b000, Sq2_s_i, 1'b0};
+                Residual2_A0_sel = (Sq2_c_i << 2);
+                Residual2_A1_sel = (Sq2_c_i << 1);
+                Residual2_A2_sel = (Sq2_s_i << 2);
+                Residual2_A3_sel = (Sq2_s_i << 1);
             end
             default: begin
                 Residual2_A0_sel = '0;

@@ -38,7 +38,7 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb 
 Top level modules:
 	CSA4_2
 
-} {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssquare_r64.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssquare_r64.sv
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_Ssquare_r64.sv {1 {vlog -work work -sv -stats=none {G:\FPU\r64_SRT_fcbrt\src\fcbrt_Ssquare_r64.sv}
 Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
 -- Compiling module fcbrt_Sq_r64
 
@@ -66,15 +66,6 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb 
 Top level modules:
 	--none--
 
-} {} {}} G:/FPU/r64_SRT_fcbrt/tb/tb_fcbrt_top_dump.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/tb/tb_fcbrt_top_dump.sv
-Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
--- Compiling package tb_fcbrt_top_dump_sv_unit
--- Importing package fcbrt_defs
--- Compiling module tb_fcbrt_top_dump
-
-Top level modules:
-	tb_fcbrt_top_dump
-
 } {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_top.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/fcbrt_top.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
 -- Compiling package fcbrt_top_sv_unit
@@ -83,6 +74,15 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb 
 
 Top level modules:
 	fcbrt_top
+
+} {} {}} G:/FPU/r64_SRT_fcbrt/tb/tb_fcbrt_top_dump.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/tb/tb_fcbrt_top_dump.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+-- Compiling package tb_fcbrt_top_dump_sv_unit
+-- Importing package fcbrt_defs
+-- Compiling module tb_fcbrt_top_dump
+
+Top level modules:
+	tb_fcbrt_top_dump
 
 } {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_postprocess.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/fcbrt_postprocess.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
@@ -100,8 +100,9 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb 
 Top level modules:
 	CLA_15bit
 
-} {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_core.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/fcbrt_core.sv
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_core.sv {2 {vlog -work work -sv -stats=none {G:\FPU\r64_SRT_fcbrt\src\fcbrt_core.sv}
 Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
+** Warning: G:\FPU\r64_SRT_fcbrt\src\fcbrt_core.sv(1): (vlog-13233) Design unit "fcbrt_core_sv_unit" already exists and will be overwritten. Overwriting SystemVerilog $unit with different source files.
 -- Compiling package fcbrt_core_sv_unit
 -- Importing package fcbrt_defs
 -- Compiling module fcbrt_core
@@ -120,7 +121,7 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb 
 Top level modules:
 	lzc
 
-} {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r64.sv {1 {vlog -work work -sv -stats=none G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r64.sv
+} {} {}} G:/FPU/r64_SRT_fcbrt/src/fcbrt_Residual_r64.sv {1 {vlog -work work -sv -stats=none {G:\FPU\r64_SRT_fcbrt\src\fcbrt_Residual_r64.sv}
 Model Technology ModelSim - Intel FPGA Edition vlog 2021.1 Compiler 2021.02 Feb  3 2021
 -- Compiling module fcbrt_Residual_r64
 
