@@ -1,0 +1,15 @@
+# Current time Fri Apr  3 15:22:45 2026
+# ModelSim - Intel FPGA Edition Stack Trace
+# Program = vsim
+# Id = "2021.1"
+# Version = "2021.02"
+# Date = "Feb  3 2021"
+# Platform = win32aloem
+# Signature = d9d305e3cb9e0897fd719cc5d4c25dfb
+# 0    0x00ad7759: '<unknown (@0xad7759)>'
+# 1    0x77098287: 'MsgWaitForMultipleObjectsEx + 0x8d7' in 'c:\windows\system32\user32.dll'
+# 2    0x00e113a7: '<unknown (@0xe113a7)>'
+# 3    0x00e208d9: '<unknown (@0xe208d9)>'
+# End of Stack Trace
+
+

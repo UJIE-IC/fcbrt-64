@@ -62,6 +62,9 @@ module fcbrt_top(
         .special_case_o 	( special_case_o  )
     );
 
+    logic [C_MANT_FP64+4:0] mant_up_o;
+    logic [C_EXP_FP64-1:0] exp_bias_up_o;
+
     fcbrt_core u_fcbrt_core(
         .clk_i          	( clk_i           ),
         .rst_ni         	( rst_ni          ),
@@ -79,7 +82,9 @@ module fcbrt_top(
         .mant_o         	( mant_o          ),
         .exp_bias_o     	( exp_bias_core_o      ),
         .special_case_o 	( special_case_core_o  ),
-        .sticky_o       	( sticky_o        )
+        .sticky_o       	( sticky_o        ),
+        .mant_up_o          (mant_up_o),
+        .exp_bias_up_o      (exp_bias_up_o)
     );
 
     fcbrt_postprocess u_fcbrt_postprocess(
@@ -97,7 +102,9 @@ module fcbrt_top(
         .exp_bias_core_i 	( exp_bias_core_o  ),
         .sticky_i        	( sticky_o         ),
         .fcbrt_result_o  	( result_o   ),
-        .done_o          	( done_o           )
+        .done_o          	( done_o           ),
+        .mant_up_core_i     (mant_up_o),
+        .exp_bias_up_core_i (exp_bias_up_o)
     );
 
 
