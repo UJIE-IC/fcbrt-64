@@ -477,6 +477,15 @@ module fcbrt_core(
     logic [C_EXP_FP64-1:0] exp_bias_nonc_reg;   // 没有经过后处理，带有偏置
     logic [C_EXP_FP64-1:0] exp_bias_nonc_p1_reg;
 
+    logic [C_EXP_FP64-1:0] q_udiv3_o_Reg;
+    always_ff @(posedge clk_i or negedge rst_ni) begin
+    if (~rst_ni) begin
+        q_udiv3_o_Reg <= '0;
+    end else begin
+        q_udiv3_o_Reg <= q_udiv3_o;
+    end
+end
+
     logic [C_EXP_FP64-1:0] x_udiv3_i_Reg;
     
     assign x_udiv3_i = (core_start)?(is_subnormal_i?({{(C_EXP_FP64-C_LZCNT){1'b0}}, lzcnt_i}):exp_bias_i):x_udiv3_i_Reg;
@@ -499,12 +508,12 @@ module fcbrt_core(
     always_comb begin
         if (is_subnormal_i) begin
             case(shift_num_i)
-                2'd3: exp_bias_nonc = 11'd682 - q_udiv3_o;
-                2'd1, 2'd2: exp_bias_nonc = 11'd681 - q_udiv3_o;
+                2'd3: exp_bias_nonc = 11'd682 - q_udiv3_o_Reg;
+                2'd1, 2'd2: exp_bias_nonc = 11'd681 - q_udiv3_o_Reg;
                 default: exp_bias_nonc = '0;
             endcase
         end else begin
-            exp_bias_nonc = 11'd682 + q_udiv3_o;
+            exp_bias_nonc = 11'd682 + q_udiv3_o_Reg;
         end
     end
 

@@ -42,8 +42,8 @@ module fcbrt_ML_PLAC(
     wire s18 = diff18[14];
 
     wire [17:0] ss = {s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18};
-    logic [13:0] bq;
 
+    logic [13:0] bq;
     logic [13:0] term1;
     logic [13:0] term2;
     logic [13:0] term3;
@@ -72,14 +72,14 @@ module fcbrt_ML_PLAC(
             default: bq = 14'b0;
         endcase
 
-        case({s3, s13})
+        case ({s3, s13})
             2'b11: term1 = x_in[13:0];
             2'b01: term1 = {1'b0, x_in[13:1]};
             2'b00: term1 = {2'b0, x_in[13:2]};
             default: term1 = 14'b0;
         endcase
 
-        case({s1, s2, s3, s5, s8, s13})
+        case ({s1, s2, s3, s5, s8, s13})
             6'b111111: term2 = {2'b0, x_in[13:2]};
             6'b011111: term2 = {3'b0, x_in[13:3]};
             6'b001111: term2 = 14'b0;
@@ -96,35 +96,18 @@ module fcbrt_ML_PLAC(
         endcase
     end
 
-    logic [14:0] sum1;
-    logic [14:0] sum2;
-    logic [14:0] y_15bit;
+    // 用综合器自己去推断更快的加法器结构
+    // 位宽仍然保持 15 bit，和原始输出格式一致
+    wire [14:0] sum_a;
+    wire [14:0] sum_b;
+    wire [14:0] y_15bit;
+    wire [14:0] rounded_sum;
 
-    CLA_15bit u1_CLA_15bit(
-        .A     	( {1'b0, term1}  ),
-        .B     	( {1'b0, term2}  ),
-        .C_in  	( 1'b0           ),
-        .S     	( sum1           ),
-        .C_out 	(                )       
-    );
+    assign sum_a      = {1'b0, term1} + {1'b0, term2};
+    assign sum_b      = {1'b0, term3} + {1'b0, bq};
+    assign y_15bit    = sum_a + sum_b;
+    assign rounded_sum = y_15bit + 15'd32;
 
-    CLA_15bit u2_CLA_15bit(
-        .A     	( sum1           ),
-        .B     	( {1'b0, term3}  ),
-        .C_in  	( 1'b0           ),
-        .S     	( sum2           ),
-        .C_out 	(                )       
-    );
-
-    CLA_15bit u3_CLA_15bit(
-        .A     	( sum2           ),
-        .B     	( {1'b0, bq}     ),
-        .C_in  	( 1'b0           ),
-        .S     	( y_15bit        ),
-        .C_out 	(                )       
-    );
-
-    wire [14:0] rounded_sum = y_15bit + 15'd32;
-    assign y_out = rounded_sum[14:6];      
+    assign y_out = rounded_sum[14:6];
 
 endmodule
